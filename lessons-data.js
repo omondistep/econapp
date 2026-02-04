@@ -25,19 +25,7 @@ const economicsLessons = [
             "Households": "Nairobi families switch to tea or reduce coffee consumption when prices rise above KSh 800/kg",
             "Firms": "Java House adjusts menu prices and portion sizes to maintain profit margins during coffee price spikes",
             "Investors": "Coffee futures traders hedge positions based on weather forecasts in major producing regions"
-        },
-        youtubeVideos: [
-            {
-                title: "Supply and Demand Explained",
-                url: "https://www.youtube.com/watch?v=kIFBaaPJUO0",
-                reference: "Khan Academy. Supply and Demand Introduction."
-            },
-            {
-                title: "Market Equilibrium",
-                url: "https://www.youtube.com/watch?v=PNtKXWNKGN8", 
-                reference: "Khan Academy. Market Equilibrium."
-            }
-        ]
+        }
     },
     {
         id: 2,
@@ -68,19 +56,7 @@ const economicsLessons = [
             "Households": "Kenyan families set strict Black Friday budgets and make shopping lists to avoid impulse purchases",
             "Firms": "Jumia Kenya uses scarcity messaging and social proof to increase conversion rates during sales events",
             "Individuals": "Shoppers use apps like Honey to compare prices and avoid falling for artificial urgency tactics"
-        },
-        youtubeVideos: [
-            {
-                title: "Behavioral Economics Explained",
-                url: "https://www.youtube.com/watch?v=lqNjmZlXGpg",
-                reference: "CrashCourse. (2023). Behavioral Economics: Crash Course Economics #27. CrashCourse."
-            },
-            {
-                title: "Psychology of Pricing",
-                url: "https://www.youtube.com/watch?v=hxUAntt1z2c",
-                reference: "TED-Ed. (2024). The Psychology of Pricing. TED-Ed."
-            }
-        ]
+        }
     },
     {
         id: 3,
@@ -102,19 +78,7 @@ const economicsLessons = [
             business: "Implement flexible pricing models for services",
             government: "Consider surge pricing for public utilities during peak demand"
         },
-        newsExample: "During NYC's January 2026 snowstorm, Uber surge pricing reached 3.2x, encouraging more drivers to work and reducing wait times.",
-        youtubeVideos: [
-            {
-                title: "Dynamic Pricing Explained",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Price Elasticity of Demand. Khan Academy Economics."
-            },
-            {
-                title: "Supply and Demand in Real Time",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Market Dynamics. Khan Academy Economics."
-            }
-        ]
+        newsExample: "During NYC's January 2026 snowstorm, Uber surge pricing reached 3.2x, encouraging more drivers to work and reducing wait times."
     },
     {
         id: 4,
@@ -131,20 +95,8 @@ const economicsLessons = [
                 {
                     label: "Nominal Wage",
                     data: [50000, 52000, 54000, 56000, 58000, 60000],
-                    borderColor: "#2563eb",
-        youtubeVideos: [
-            {
-                title: "Inflation and Real Wages",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            },
-            {
-                title: "Purchasing Power Explained",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Real vs Nominal Values. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#2563eb"
+                },
                 {
                     label: "Real Wage (2020 dollars)",
                     data: [50000, 49500, 47800, 48200, 49100, 49800],
@@ -178,54 +130,13 @@ const economicsLessons = [
                 ["E-commerce", "Amazon", "40%", "Seller/buyer network"]
             ]
         },
-        chartData: {
-            type: "bar",
-            labels: ["Perfect Competition", "Monopolistic Competition", "Oligopoly", "Monopoly"],
-            datasets: [
-                {
-                    label: "Number of Firms",
-                    data: [1000, 100, 5, 1],
-                    backgroundColor: "#2563eb"
-                },
-                {
-                    label: "Market Power (1-10)",
-                    data: [1, 3, 7, 10],
-                    backgroundColor: "#dc2626"
-                }
-            ],
-            title: "Market Structure Comparison"
-        },
         applications: {
             individual: "Understand why switching costs are high in tech products",
             household: "Consider ecosystem lock-in when making tech purchases",
             business: "Build network effects into product strategy",
             government: "Regulate monopolistic practices in tech markets"
         },
-        newsExample: "EU's Digital Markets Act 2025 forced Apple to allow third-party app stores, challenging iOS network effects.",
-        examples: {
-            "Government": "Communications Authority of Kenya studying digital platform regulations following EU Digital Markets Act",
-            "Households": "Kenyan iPhone users gained access to alternative app stores, reducing app costs by average 20%",
-            "Firms": "Local app developers like iHub gained direct access to iOS users without Apple's 30% commission",
-            "Investors": "Kenyan fintech startups raised $45M in 2024, partly due to reduced platform dependency risks"
-        },
-        references: [
-            "Communications Authority of Kenya. (2024). Digital Economy Report 2024. CAK.",
-            "European Commission. (2024). Digital Markets Act Implementation Report. EC.",
-            "iHub. (2024). Kenya Tech Ecosystem Report. iHub Research.",
-            "Kenya Private Equity and Venture Capital Association. (2024). Annual Report. KEPVCA."
-        ],
-        youtubeVideos: [
-            {
-                title: "Supply and Demand Explained",
-                url: "https://www.youtube.com/watch?v=kIFBaaPJUO0",
-                reference: "Khan Academy. Supply and Demand Introduction."
-            },
-            {
-                title: "Market Equilibrium",
-                url: "https://www.youtube.com/watch?v=PNtKXWNKGN8",
-                reference: "Khan Academy. Market Equilibrium."
-            }
-        ]
+        newsExample: "EU's Digital Markets Act 2025 forced Apple to allow third-party app stores, challenging iOS network effects."
     },
     {
         id: 6,
@@ -250,19 +161,7 @@ const economicsLessons = [
             business: "Understand competitive dynamics and strategic partnerships",
             government: "Design policies that encourage cooperation"
         },
-        newsExample: "OPEC+ oil production cuts in 2025 demonstrated successful cooperation, maintaining higher prices despite individual incentives to overproduce.",
-        youtubeVideos: [
-            {
-                title: "Game Theory: The Prisoner's Dilemma",
-                url: "https://www.youtube.com/watch?v=MHS-htjGgSY",
-                reference: "TED-Ed. (2023). Game Theory: The Science of Decision-Making. TED-Ed."
-            },
-            {
-                title: "Nash Equilibrium Explained",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. (2023). Nash Equilibrium. Khan Academy Economics."
-            }
-        ]
+        newsExample: "OPEC+ oil production cuts in 2025 demonstrated successful cooperation, maintaining higher prices despite individual incentives to overproduce."
     },
     {
         id: 7,
@@ -284,19 +183,7 @@ const economicsLessons = [
             business: "Understand labor costs and skill premiums in hiring",
             government: "Support education and training programs"
         },
-        newsExample: "Tech worker shortage in 2025 drove software engineer salaries up 15%, while automation reduced demand for routine manufacturing jobs.",
-        youtubeVideos: [
-            {
-                title: "Labor Markets and Wage Determination",
-                url: "https://www.youtube.com/watch?v=q8A4bP3SL9o",
-                reference: "Khan Academy. (2023). Labor Markets. Khan Academy Economics."
-            },
-            {
-                title: "Human Capital Theory",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "Khan Academy. (2023). Human Capital and Education. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Tech worker shortage in 2025 drove software engineer salaries up 15%, while automation reduced demand for routine manufacturing jobs."
     },
     {
         id: 8,
@@ -321,19 +208,7 @@ const economicsLessons = [
             business: "Anticipate labor market effects of income policies",
             government: "Design efficient and effective social safety nets"
         },
-        newsExample: "Finland's UBI pilot (2017-2018) showed modest employment gains but highlighted implementation challenges, influencing 2025 policy debates.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Finland's UBI pilot (2017-2018) showed modest employment gains but highlighted implementation challenges, influencing 2025 policy debates."
     },
     {
         id: 9,
@@ -355,19 +230,7 @@ const economicsLessons = [
             business: "Diversify supply chains to minimize tariff exposure",
             government: "Balance protection of domestic industries with consumer welfare"
         },
-        newsExample: "US-China trade tensions in 2025 led to 25% tariffs on electronics, increasing smartphone prices and pushing consumers toward domestic alternatives.",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "US-China trade tensions in 2025 led to 25% tariffs on electronics, increasing smartphone prices and pushing consumers toward domestic alternatives."
     },
     {
         id: 10,
@@ -392,19 +255,7 @@ const economicsLessons = [
             business: "Manage information disclosure carefully to comply with regulations",
             government: "Enforce insider trading laws to maintain market integrity"
         },
-        newsExample: "Tesla stock rose 8% in the week before announcing record Q4 2025 deliveries, suggesting information leakage despite strict disclosure rules.",
-        youtubeVideos: [
-            {
-                title: "How M-Pesa Changed Kenya",
-                url: "https://www.youtube.com/watch?v=25Hce0p2vFU",
-                reference: "BBC News. (2024). M-Pesa: How Mobile Money Transformed Kenya. BBC News Africa."
-            },
-            {
-                title: "Banking and Money Creation",
-                url: "https://www.youtube.com/watch?v=JG5c8nhR3LE",
-                reference: "Khan Academy. (2023). Banking and Money Creation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Tesla stock rose 8% in the week before announcing record Q4 2025 deliveries, suggesting information leakage despite strict disclosure rules."
     },
     {
         id: 11,
@@ -429,19 +280,7 @@ const economicsLessons = [
             business: "Internalize environmental costs through sustainable practices",
             government: "Implement carbon taxes and environmental regulations"
         },
-        newsExample: "H&M faced $4.3M fine in 2025 for misleading sustainability claims, highlighting growing scrutiny of fast fashion's environmental impact.",
-        youtubeVideos: [
-            {
-                title: "Environmental Economics and Policy",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Environmental Economics. Khan Academy Economics."
-            },
-            {
-                title: "Carbon Pricing and Climate Policy",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "TED-Ed. (2024). Carbon Pricing: How to Put a Price on Carbon. TED-Ed."
-            }
-        ]
+        newsExample: "H&M faced $4.3M fine in 2025 for misleading sustainability claims, highlighting growing scrutiny of fast fashion's environmental impact."
     },
     {
         id: 12,
@@ -458,20 +297,8 @@ const economicsLessons = [
                 {
                     label: "Fed Rate (%)",
                     data: [0.25, 0.25, 4.25, 5.25, 4.75, 3.50],
-                    borderColor: "#2563eb",
-        youtubeVideos: [
-            {
-                title: "Monetary Policy and Central Banking",
-                url: "https://www.youtube.com/watch?v=1dq7mMort9o",
-                reference: "Khan Academy. (2023). Monetary Policy. Khan Academy Macroeconomics."
-            },
-            {
-                title: "Interest Rates and the Economy",
-                url: "https://www.youtube.com/watch?v=PHe0bXAIuk0",
-                reference: "Khan Academy. (2023). Interest Rates. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#2563eb"
+                },
                 {
                     label: "Mortgage Rate (%)",
                     data: [2.65, 2.96, 5.81, 7.12, 6.81, 5.95],
@@ -511,19 +338,7 @@ const economicsLessons = [
             business: "Design subscription models that leverage psychological biases ethically",
             government: "Require clear disclosure of total subscription costs"
         },
-        newsExample: "Average American spent $273/month on subscriptions in 2025, up 435% from 2018, with many unaware of total costs.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Average American spent $273/month on subscriptions in 2025, up 435% from 2018, with many unaware of total costs."
     },
     {
         id: 14,
@@ -540,20 +355,8 @@ const economicsLessons = [
                 {
                     label: "Traditional Employee",
                     data: [85, 65, 100, 100, 75],
-                    backgroundColor: "#2563eb",
-        youtubeVideos: [
-            {
-                title: "Labor Markets and Wages",
-                url: "https://www.youtube.com/watch?v=q8A4bP3SL9o",
-                reference: "Khan Academy. (2023). Labor Markets and Wage Determination. Khan Academy Economics."
-            },
-            {
-                title: "Human Capital Theory",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "Khan Academy. (2023). Human Capital and Education. Khan Academy Economics."
-            }
-        ]
-    },
+                    backgroundColor: "#2563eb"
+                },
                 {
                     label: "Gig Worker",
                     data: [35, 25, 0, 0, 0],
@@ -593,19 +396,7 @@ const economicsLessons = [
             business: "Factor healthcare costs into employee compensation",
             government: "Design efficient healthcare systems balancing cost and access"
         },
-        newsExample: "US healthcare spending reached $4.5 trillion in 2025, highlighting ongoing debate over single-payer vs. market-based reforms.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "US healthcare spending reached $4.5 trillion in 2025, highlighting ongoing debate over single-payer vs. market-based reforms."
     },
     {
         id: 16,
@@ -627,19 +418,7 @@ const economicsLessons = [
             business: "Use price discrimination ethically to maximize revenue",
             government: "Monitor for anti-competitive pricing practices"
         },
-        newsExample: "AMC Theaters' 2025 earnings showed concessions generated 85% of profits despite being only 30% of revenue.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "AMC Theaters' 2025 earnings showed concessions generated 85% of profits despite being only 30% of revenue."
     },
     {
         id: 17,
@@ -664,19 +443,7 @@ const economicsLessons = [
             business: "Hedge currency risk in international operations",
             government: "Monitor exchange rates for trade competitiveness"
         },
-        newsExample: "Dollar's 15% surge against Euro in 2025 made European vacations 20% cheaper for Americans, boosting tourism.",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Dollar's 15% surge against Euro in 2025 made European vacations 20% cheaper for Americans, boosting tourism."
     },
     {
         id: 18,
@@ -701,19 +468,7 @@ const economicsLessons = [
             business: "Regularly evaluate projects based on future potential",
             government: "Cancel ineffective programs regardless of past spending"
         },
-        newsExample: "Concorde supersonic jet continued flying until 2003 despite losses, partly due to sunk cost fallacy in development investments.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Concorde supersonic jet continued flying until 2003 despite losses, partly due to sunk cost fallacy in development investments."
     },
     {
         id: 19,
@@ -735,19 +490,7 @@ const economicsLessons = [
             business: "Evaluate market potential based on economic development",
             government: "Focus on institutions, education, and infrastructure for growth"
         },
-        newsExample: "Rwanda's GDP per capita doubled from 2015-2025 through institutional reforms and technology adoption, becoming Africa's growth model.",
-        youtubeVideos: [
-            {
-                title: "GDP Explained: Measuring Economic Growth",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. (2023). Gross Domestic Product (GDP). Khan Academy Macroeconomics."
-            },
-            {
-                title: "Inflation and Deflation",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Rwanda's GDP per capita doubled from 2015-2025 through institutional reforms and technology adoption, becoming Africa's growth model."
     },
     {
         id: 20,
@@ -772,19 +515,7 @@ const economicsLessons = [
             business: "Consider platform strategies for market entry",
             government: "Regulate platforms while preserving innovation benefits"
         },
-        newsExample: "TikTok's creator fund reached $2B in 2025, demonstrating how platforms invest in one side to attract the other.",
-        youtubeVideos: [
-            {
-                title: "Perfect Competition vs Monopoly",
-                url: "https://www.youtube.com/watch?v=H6Wc_U3YXag",
-                reference: "Khan Academy. (2023). Market Structures. Khan Academy Microeconomics."
-            },
-            {
-                title: "Network Effects and Monopolies",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. (2023). Natural Monopolies. Khan Academy Microeconomics."
-            }
-        ]
+        newsExample: "TikTok's creator fund reached $2B in 2025, demonstrating how platforms invest in one side to attract the other."
     },
     {
         id: 21,
@@ -801,20 +532,8 @@ const economicsLessons = [
                 {
                     label: "Federal Min Wage",
                     data: [7.25, 7.25, 7.25, 7.25, 7.25, 7.25],
-                    borderColor: "#dc2626",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
-    },
+                    borderColor: "#dc2626"
+                },
                 {
                     label: "Average State Min Wage",
                     data: [9.50, 10.20, 11.80, 13.25, 14.50, 15.75],
@@ -851,19 +570,7 @@ const economicsLessons = [
             business: "Consider blockchain technology separate from cryptocurrency speculation",
             government: "Regulate to prevent fraud while allowing innovation"
         },
-        newsExample: "Bitcoin's 60% price swing in 2025 highlighted ongoing debate over whether crypto is currency, commodity, or speculative asset.",
-        youtubeVideos: [
-            {
-                title: "How M-Pesa Changed Kenya",
-                url: "https://www.youtube.com/watch?v=25Hce0p2vFU",
-                reference: "BBC News. (2024). M-Pesa: How Mobile Money Transformed Kenya. BBC News Africa."
-            },
-            {
-                title: "Banking and Money Creation",
-                url: "https://www.youtube.com/watch?v=JG5c8nhR3LE",
-                reference: "Khan Academy. (2023). Banking and Money Creation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Bitcoin's 60% price swing in 2025 highlighted ongoing debate over whether crypto is currency, commodity, or speculative asset."
     },
     {
         id: 23,
@@ -888,19 +595,7 @@ const economicsLessons = [
             business: "Prepare for carbon pricing and regulatory changes",
             government: "Design effective climate policies balancing costs and benefits"
         },
-        newsExample: "EU's carbon price hit record €89/ton in 2025, making renewable energy more competitive and driving industrial transformation.",
-        youtubeVideos: [
-            {
-                title: "Environmental Economics and Policy",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Environmental Economics. Khan Academy Economics."
-            },
-            {
-                title: "Carbon Pricing and Climate Policy",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "TED-Ed. (2024). Carbon Pricing: How to Put a Price on Carbon. TED-Ed."
-            }
-        ]
+        newsExample: "EU's carbon price hit record €89/ton in 2025, making renewable energy more competitive and driving industrial transformation."
     },
     {
         id: 24,
@@ -917,20 +612,8 @@ const economicsLessons = [
                 {
                     label: "Pre-COVID Salary",
                     data: [180000, 120000, 110000, 95000, 0],
-                    backgroundColor: "#94a3b8",
-        youtubeVideos: [
-            {
-                title: "Labor Markets and Wages",
-                url: "https://www.youtube.com/watch?v=q8A4bP3SL9o",
-                reference: "Khan Academy. (2023). Labor Markets and Wage Determination. Khan Academy Economics."
-            },
-            {
-                title: "Human Capital Theory",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "Khan Academy. (2023). Human Capital and Education. Khan Academy Economics."
-            }
-        ]
-    },
+                    backgroundColor: "#94a3b8"
+                },
                 {
                     label: "2025 Remote Salary",
                     data: [165000, 125000, 115000, 105000, 85000],
@@ -970,19 +653,7 @@ const economicsLessons = [
             business: "Design retirement benefits that overcome behavioral biases",
             government: "Implement policies that encourage long-term saving"
         },
-        newsExample: "Auto-enrollment in 401(k) plans increased participation from 65% to 95% in 2025, demonstrating power of behavioral interventions.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Auto-enrollment in 401(k) plans increased participation from 65% to 95% in 2025, demonstrating power of behavioral interventions."
     },
     {
         id: 26,
@@ -1007,19 +678,7 @@ const economicsLessons = [
             business: "Choose auction format based on revenue goals",
             government: "Design auctions for spectrum, contracts, and public assets"
         },
-        newsExample: "Google's ad auction generated $307B revenue in 2025 using Vickrey-style pricing that encourages truthful bidding.",
-        youtubeVideos: [
-            {
-                title: "Game Theory Explained",
-                url: "https://www.youtube.com/watch?v=MHS-htjGgSY",
-                reference: "TED-Ed. (2023). Game Theory: The Science of Decision-Making. TED-Ed."
-            },
-            {
-                title: "Nash Equilibrium",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. (2023). Nash Equilibrium. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Google's ad auction generated $307B revenue in 2025 using Vickrey-style pricing that encourages truthful bidding."
     },
     {
         id: 27,
@@ -1036,20 +695,8 @@ const economicsLessons = [
                 {
                     label: "Cost Efficiency",
                     data: [95, 85, 75, 65],
-                    backgroundColor: "#2563eb",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    backgroundColor: "#2563eb"
+                },
                 {
                     label: "Resilience Score",
                     data: [20, 45, 70, 90],
@@ -1089,19 +736,7 @@ const economicsLessons = [
             business: "Provide training and development for employees",
             government: "Fund education based on both private and social returns"
         },
-        newsExample: "Finland's education investment of 6.8% of GDP in 2025 correlated with highest innovation index ranking and social mobility.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Finland's education investment of 6.8% of GDP in 2025 correlated with highest innovation index ranking and social mobility."
     },
     {
         id: 29,
@@ -1126,19 +761,7 @@ const economicsLessons = [
             business: "Build legitimate switching costs through superior integration",
             government: "Prevent artificial switching costs that harm competition"
         },
-        newsExample: "Apple's ecosystem integration generated $365B services revenue in 2025, demonstrating value of high switching costs.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Apple's ecosystem integration generated $365B services revenue in 2025, demonstrating value of high switching costs."
     },
     {
         id: 30,
@@ -1155,20 +778,8 @@ const economicsLessons = [
                 {
                     label: "GDP Growth (%)",
                     data: [-3.4, 5.7, 2.1, 2.5, 2.8, 3.1],
-                    borderColor: "#2563eb",
-        youtubeVideos: [
-            {
-                title: "GDP Explained: Measuring Economic Growth",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. (2023). Gross Domestic Product (GDP). Khan Academy Macroeconomics."
-            },
-            {
-                title: "Inflation and Deflation",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#2563eb"
+                },
                 {
                     label: "Unemployment (%)",
                     data: [8.1, 5.4, 3.6, 3.7, 4.0, 3.8],
@@ -1207,19 +818,7 @@ const economicsLessons = [
             business: "Offer curated selections rather than overwhelming catalogs",
             government: "Design public services with clear, limited pathways"
         },
-        newsExample: "Netflix's algorithm reduces choice overload by curating personalized recommendations from 15,000+ titles to manageable selections.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Netflix's algorithm reduces choice overload by curating personalized recommendations from 15,000+ titles to manageable selections."
     },
     {
         id: 32,
@@ -1240,19 +839,7 @@ const economicsLessons = [
             business: "Innovate in clean technology when carbon pricing creates market opportunities",
             government: "Implement carbon pricing to achieve climate goals efficiently"
         },
-        newsExample: "EU's carbon price reached €90/ton in 2025, driving record investments in renewable energy and industrial decarbonization.",
-        youtubeVideos: [
-            {
-                title: "Environmental Economics and Policy",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Environmental Economics. Khan Academy Economics."
-            },
-            {
-                title: "Carbon Pricing and Climate Policy",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "TED-Ed. (2024). Carbon Pricing: How to Put a Price on Carbon. TED-Ed."
-            }
-        ]
+        newsExample: "EU's carbon price reached €90/ton in 2025, driving record investments in renewable energy and industrial decarbonization."
     },
     {
         id: 33,
@@ -1276,19 +863,7 @@ const economicsLessons = [
             business: "Create win-win partnerships rather than zero-sum competition",
             government: "Design institutions that encourage cooperation"
         },
-        newsExample: "OPEC's production agreements demonstrate how cooperation can benefit all members despite individual incentives to cheat.",
-        youtubeVideos: [
-            {
-                title: "Game Theory: The Prisoner's Dilemma",
-                url: "https://www.youtube.com/watch?v=MHS-htjGgSY",
-                reference: "TED-Ed. (2023). Game Theory: The Science of Decision-Making. TED-Ed."
-            },
-            {
-                title: "Nash Equilibrium Explained",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. (2023). Nash Equilibrium. Khan Academy Economics."
-            }
-        ]
+        newsExample: "OPEC's production agreements demonstrate how cooperation can benefit all members despite individual incentives to cheat."
     },
     {
         id: 34,
@@ -1309,19 +884,7 @@ const economicsLessons = [
             business: "Balance flexibility with worker investment and retention",
             government: "Update labor laws for new forms of work"
         },
-        newsExample: "California's AB5 law reclassified many gig workers as employees, sparking national debate on worker classification.",
-        youtubeVideos: [
-            {
-                title: "Labor Markets and Wages",
-                url: "https://www.youtube.com/watch?v=q8A4bP3SL9o",
-                reference: "Khan Academy. (2023). Labor Markets and Wage Determination. Khan Academy Economics."
-            },
-            {
-                title: "Human Capital Theory",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "Khan Academy. (2023). Human Capital and Education. Khan Academy Economics."
-            }
-        ]
+        newsExample: "California's AB5 law reclassified many gig workers as employees, sparking national debate on worker classification."
     },
     {
         id: 35,
@@ -1345,19 +908,7 @@ const economicsLessons = [
             business: "Plan capital investments around borrowing costs",
             government: "Coordinate fiscal policy with monetary policy"
         },
-        newsExample: "Fed's 2025 rate cuts from 5.5% to 3.5% sparked housing market recovery and increased business investment.",
-        youtubeVideos: [
-            {
-                title: "Monetary Policy and Central Banking",
-                url: "https://www.youtube.com/watch?v=1dq7mMort9o",
-                reference: "Khan Academy. (2023). Monetary Policy. Khan Academy Macroeconomics."
-            },
-            {
-                title: "Interest Rates and the Economy",
-                url: "https://www.youtube.com/watch?v=PHe0bXAIuk0",
-                reference: "Khan Academy. (2023). Interest Rates. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Fed's 2025 rate cuts from 5.5% to 3.5% sparked housing market recovery and increased business investment."
     },
     {
         id: 36,
@@ -1373,20 +924,8 @@ const economicsLessons = [
                 {
                     label: "Pre-Tariff Price",
                     data: [500, 50, 25000, 100],
-                    backgroundColor: "#3b82f6",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    backgroundColor: "#3b82f6"
+                },
                 {
                     label: "Post-Tariff Price",
                     data: [575, 60, 27500, 110],
@@ -1425,19 +964,7 @@ const economicsLessons = [
             business: "Focus on fundamentals rather than stock price fluctuations",
             government: "Maintain stable regulatory environment for markets"
         },
-        newsExample: "2025's 35% market volatility created opportunities for disciplined investors while emotional traders lost money.",
-        youtubeVideos: [
-            {
-                title: "How M-Pesa Changed Kenya",
-                url: "https://www.youtube.com/watch?v=25Hce0p2vFU",
-                reference: "BBC News. (2024). M-Pesa: How Mobile Money Transformed Kenya. BBC News Africa."
-            },
-            {
-                title: "Banking and Money Creation",
-                url: "https://www.youtube.com/watch?v=JG5c8nhR3LE",
-                reference: "Khan Academy. (2023). Banking and Money Creation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "2025's 35% market volatility created opportunities for disciplined investors while emotional traders lost money."
     },
     {
         id: 38,
@@ -1453,20 +980,8 @@ const economicsLessons = [
                 {
                     label: "Work Hours",
                     data: [40, 38, 35, 30, 25],
-                    borderColor: "#dc2626",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
-    },
+                    borderColor: "#dc2626"
+                },
                 {
                     label: "Life Satisfaction",
                     data: [5, 6.2, 7.1, 7.8, 8.2],
@@ -1505,19 +1020,7 @@ const economicsLessons = [
             business: "Use subscriptions to create predictable revenue streams",
             government: "Ensure transparent pricing and easy cancellation"
         },
-        newsExample: "Average household has 12 subscriptions costing $273/month, with 42% going unused according to 2025 studies.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Average household has 12 subscriptions costing $273/month, with 42% going unused according to 2025 studies."
     },
     {
         id: 40,
@@ -1541,19 +1044,7 @@ const economicsLessons = [
             business: "Understand customer spending patterns by income type",
             government: "Design tax policy considering mental accounting effects"
         },
-        newsExample: "2025 stimulus payments were spent 3x faster than regular income, demonstrating mental accounting in action.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "2025 stimulus payments were spent 3x faster than regular income, demonstrating mental accounting in action."
     },
     {
         id: 41,
@@ -1569,20 +1060,8 @@ const economicsLessons = [
                 {
                     label: "Available Units (Rent Control)",
                     data: [1000, 950, 850, 700, 500],
-                    borderColor: "#dc2626",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
-    },
+                    borderColor: "#dc2626"
+                },
                 {
                     label: "Available Units (Market Rate)",
                     data: [1000, 1100, 1300, 1600, 2000],
@@ -1621,19 +1100,7 @@ const economicsLessons = [
             business: "Implement dynamic pricing and cost management",
             government: "Target inflation policies to protect vulnerable groups"
         },
-        newsExample: "2025's 4.2% inflation hit food and energy hardest, disproportionately affecting lower-income households.",
-        youtubeVideos: [
-            {
-                title: "GDP Explained: Measuring Economic Growth",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. (2023). Gross Domestic Product (GDP). Khan Academy Macroeconomics."
-            },
-            {
-                title: "Inflation and Deflation",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "2025's 4.2% inflation hit food and energy hardest, disproportionately affecting lower-income households."
     },
     {
         id: 43,
@@ -1657,19 +1124,7 @@ const economicsLessons = [
             business: "Choose auction format to maximize revenue",
             government: "Design spectrum auctions for optimal outcomes"
         },
-        newsExample: "5G spectrum auctions raised $81B in 2025, with carriers using sophisticated bidding algorithms.",
-        youtubeVideos: [
-            {
-                title: "Game Theory Explained",
-                url: "https://www.youtube.com/watch?v=MHS-htjGgSY",
-                reference: "TED-Ed. (2023). Game Theory: The Science of Decision-Making. TED-Ed."
-            },
-            {
-                title: "Nash Equilibrium",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. (2023). Nash Equilibrium. Khan Academy Economics."
-            }
-        ]
+        newsExample: "5G spectrum auctions raised $81B in 2025, with carriers using sophisticated bidding algorithms."
     },
     {
         id: 44,
@@ -1685,20 +1140,8 @@ const economicsLessons = [
                 {
                     label: "Solar Cost ($/MWh)",
                     data: [125, 95, 68, 48, 35, 28],
-                    borderColor: "#f59e0b",
-        youtubeVideos: [
-            {
-                title: "Environmental Economics and Policy",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Environmental Economics. Khan Academy Economics."
-            },
-            {
-                title: "Carbon Pricing and Climate Policy",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "TED-Ed. (2024). Carbon Pricing: How to Put a Price on Carbon. TED-Ed."
-            }
-        ]
-    },
+                    borderColor: "#f59e0b"
+                },
                 {
                     label: "Wind Cost ($/MWh)",
                     data: [80, 65, 52, 41, 33, 29],
@@ -1742,19 +1185,7 @@ const economicsLessons = [
             business: "Retrain workers rather than simply replacing them",
             government: "Provide transition support and education funding"
         },
-        newsExample: "AI eliminated 2M routine jobs in 2025 but created 2.4M new roles in AI development and human-AI collaboration.",
-        youtubeVideos: [
-            {
-                title: "Labor Markets and Wages",
-                url: "https://www.youtube.com/watch?v=q8A4bP3SL9o",
-                reference: "Khan Academy. (2023). Labor Markets and Wage Determination. Khan Academy Economics."
-            },
-            {
-                title: "Human Capital Theory",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "Khan Academy. (2023). Human Capital and Education. Khan Academy Economics."
-            }
-        ]
+        newsExample: "AI eliminated 2M routine jobs in 2025 but created 2.4M new roles in AI development and human-AI collaboration."
     },
     {
         id: 46,
@@ -1770,20 +1201,8 @@ const economicsLessons = [
                 {
                     label: "Bitcoin Price ($000s)",
                     data: [29, 47, 20, 27, 42, 58],
-                    borderColor: "#f59e0b",
-        youtubeVideos: [
-            {
-                title: "How M-Pesa Changed Kenya",
-                url: "https://www.youtube.com/watch?v=25Hce0p2vFU",
-                reference: "BBC News. (2024). M-Pesa: How Mobile Money Transformed Kenya. BBC News Africa."
-            },
-            {
-                title: "Banking and Money Creation",
-                url: "https://www.youtube.com/watch?v=JG5c8nhR3LE",
-                reference: "Khan Academy. (2023). Banking and Money Creation. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#f59e0b"
+                },
                 {
                     label: "Active Wallets (Millions)",
                     data: [52, 76, 68, 81, 95, 118],
@@ -1822,19 +1241,7 @@ const economicsLessons = [
             business: "Design health benefits to align incentives",
             government: "Address market failures through targeted interventions"
         },
-        newsExample: "US healthcare spending reached 19.7% of GDP in 2025, double the OECD average, highlighting system inefficiencies.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "US healthcare spending reached 19.7% of GDP in 2025, double the OECD average, highlighting system inefficiencies."
     },
     {
         id: 48,
@@ -1858,19 +1265,7 @@ const economicsLessons = [
             business: "Respect user attention and provide genuine value",
             government: "Regulate addictive design patterns"
         },
-        newsExample: "Average person spent 2.5 hours daily on social media in 2025, generating $127 in annual ad revenue per user.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Average person spent 2.5 hours daily on social media in 2025, generating $127 in annual ad revenue per user."
     },
     {
         id: 49,
@@ -1886,20 +1281,8 @@ const economicsLessons = [
                 {
                     label: "Normal Costs",
                     data: [100, 115, 130],
-                    backgroundColor: "#3b82f6",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    backgroundColor: "#3b82f6"
+                },
                 {
                     label: "Crisis Costs",
                     data: [300, 150, 135],
@@ -1938,19 +1321,7 @@ const economicsLessons = [
             business: "Build network effects to create competitive moats",
             government: "Prevent monopolistic behavior in platform markets"
         },
-        newsExample: "Amazon's marketplace generated $140B in third-party sales in 2025, demonstrating platform economics at scale.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Amazon's marketplace generated $140B in third-party sales in 2025, demonstrating platform economics at scale."
     },
     {
         id: 51,
@@ -1974,19 +1345,7 @@ const economicsLessons = [
             business: "Allocate limited capital between expansion and equipment upgrade",
             government: "Balance spending between infrastructure and social services"
         },
-        newsExample: "Kenyan farmers in Meru County shifted from coffee to avocados, trading traditional crop security for higher export revenues.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenyan farmers in Meru County shifted from coffee to avocados, trading traditional crop security for higher export revenues."
     },
     {
         id: 52,
@@ -2002,20 +1361,8 @@ const economicsLessons = [
                 {
                     label: "Current Technology",
                     data: [100, 95, 85, 70, 50, 0],
-                    borderColor: "#dc2626",
-        youtubeVideos: [
-            {
-                title: "Production Possibilities Curve",
-                url: "https://www.youtube.com/watch?v=kIFBaaPJUO0",
-                reference: "Khan Academy. (2023). Production Possibilities Curve. Khan Academy Economics."
-            },
-            {
-                title: "Opportunity Cost and Trade-offs",
-                url: "https://www.youtube.com/watch?v=lqNjmZlXGpg",
-                reference: "CrashCourse. (2023). Opportunity Cost. CrashCourse Economics."
-            }
-        ]
-    },
+                    borderColor: "#dc2626"
+                },
                 {
                     label: "Improved Technology",
                     data: [120, 115, 105, 90, 70, 0],
@@ -2054,19 +1401,7 @@ const economicsLessons = [
             business: "Price luxury goods higher, keep essentials competitive",
             government: "Target subsidies on inelastic goods to help the poor"
         },
-        newsExample: "When maize prices rose 40% in 2022, consumption fell only 12%, showing inelastic demand for Kenya's staple food.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "When maize prices rose 40% in 2022, consumption fell only 12%, showing inelastic demand for Kenya's staple food."
     },
     {
         id: 54,
@@ -2090,19 +1425,7 @@ const economicsLessons = [
             business: "Comply with regulations while advocating for efficient policies",
             government: "Intervene strategically where markets fail most severely"
         },
-        newsExample: "Kenya's free primary education program addressed market failure in education access, increasing enrollment from 6M to 10M students.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenya's free primary education program addressed market failure in education access, increasing enrollment from 6M to 10M students."
     },
     {
         id: 55,
@@ -2123,19 +1446,7 @@ const economicsLessons = [
             business: "Invest in growing sectors of the economy",
             government: "Set realistic growth targets and allocate resources accordingly"
         },
-        newsExample: "Kenya's GDP grew 5.7% in 2025, driven by strong services sector performance and improved agricultural output.",
-        youtubeVideos: [
-            {
-                title: "GDP Explained: Measuring Economic Growth",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. (2023). Gross Domestic Product (GDP). Khan Academy Macroeconomics."
-            },
-            {
-                title: "Inflation and Deflation",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Kenya's GDP grew 5.7% in 2025, driven by strong services sector performance and improved agricultural output."
     },
     {
         id: 56,
@@ -2159,19 +1470,7 @@ const economicsLessons = [
             business: "Provide training and create entry-level positions",
             government: "Align education with labor market needs"
         },
-        newsExample: "Kenya's Ajira Digital Program trained 1M youth in digital skills, reducing youth unemployment in tech sector by 15%.",
-        youtubeVideos: [
-            {
-                title: "Labor Markets and Wages",
-                url: "https://www.youtube.com/watch?v=q8A4bP3SL9o",
-                reference: "Khan Academy. (2023). Labor Markets and Wage Determination. Khan Academy Economics."
-            },
-            {
-                title: "Human Capital Theory",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "Khan Academy. (2023). Human Capital and Education. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenya's Ajira Digital Program trained 1M youth in digital skills, reducing youth unemployment in tech sector by 15%."
     },
     {
         id: 57,
@@ -2187,20 +1486,8 @@ const economicsLessons = [
                 {
                     label: "Inflation Rate (%)",
                     data: [5.2, 6.1, 7.9, 7.7, 6.8, 5.1],
-                    borderColor: "#dc2626",
-        youtubeVideos: [
-            {
-                title: "Monetary Policy and Central Banking",
-                url: "https://www.youtube.com/watch?v=1dq7mMort9o",
-                reference: "Khan Academy. (2023). Monetary Policy. Khan Academy Macroeconomics."
-            },
-            {
-                title: "Interest Rates and the Economy",
-                url: "https://www.youtube.com/watch?v=PHe0bXAIuk0",
-                reference: "Khan Academy. (2023). Interest Rates. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#dc2626"
+                },
                 {
                     label: "CBK Rate (%)",
                     data: [7.0, 7.0, 8.75, 10.5, 12.0, 11.0],
@@ -2240,19 +1527,7 @@ const economicsLessons = [
             business: "Explore export opportunities and value addition",
             government: "Support export diversification and market access"
         },
-        newsExample: "Kenya's horticultural exports grew 35% in 2025, overtaking coffee as the second-largest agricultural export after tea.",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Kenya's horticultural exports grew 35% in 2025, overtaking coffee as the second-largest agricultural export after tea."
     },
     {
         id: 59,
@@ -2273,19 +1548,7 @@ const economicsLessons = [
             business: "Hedge foreign exchange risk for imports/exports",
             government: "Maintain adequate foreign reserves for stability"
         },
-        newsExample: "Kenyan Shilling depreciated 15% in 2025 due to global dollar strength, raising fuel costs but boosting tea export competitiveness.",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "Kenyan Shilling depreciated 15% in 2025 due to global dollar strength, raising fuel costs but boosting tea export competitiveness."
     },
     {
         id: 60,
@@ -2309,19 +1572,7 @@ const economicsLessons = [
             business: "Adopt sustainable practices and circular economy principles",
             government: "Balance development with environmental protection"
         },
-        newsExample: "Kenya's community conservancies generated $87M in 2025, proving that conservation can be economically viable.",
-        youtubeVideos: [
-            {
-                title: "Environmental Economics and Policy",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Environmental Economics. Khan Academy Economics."
-            },
-            {
-                title: "Carbon Pricing and Climate Policy",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "TED-Ed. (2024). Carbon Pricing: How to Put a Price on Carbon. TED-Ed."
-            }
-        ]
+        newsExample: "Kenya's community conservancies generated $87M in 2025, proving that conservation can be economically viable."
     },
     {
         id: 61,
@@ -2342,19 +1593,7 @@ const economicsLessons = [
             business: "Create inclusive employment and fair wage policies",
             government: "Design progressive tax systems and targeted transfers"
         },
-        newsExample: "Kenya's Gini coefficient improved from 0.48 to 0.45 between 2020-2025 due to expanded social protection programs.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenya's Gini coefficient improved from 0.48 to 0.45 between 2020-2025 due to expanded social protection programs."
     },
     {
         id: 62,
@@ -2378,19 +1617,7 @@ const economicsLessons = [
             business: "Accept mobile payments and access digital credit",
             government: "Leverage mobile money for social transfers and tax collection"
         },
-        newsExample: "M-Pesa processed $68B in transactions in 2025, equivalent to 60% of Kenya's GDP, demonstrating massive financial inclusion impact.",
-        youtubeVideos: [
-            {
-                title: "How M-Pesa Changed Kenya",
-                url: "https://www.youtube.com/watch?v=25Hce0p2vFU",
-                reference: "BBC News. (2024). M-Pesa: How Mobile Money Transformed Kenya. BBC News Africa."
-            },
-            {
-                title: "Banking and Money Creation",
-                url: "https://www.youtube.com/watch?v=JG5c8nhR3LE",
-                reference: "Khan Academy. (2023). Banking and Money Creation. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "M-Pesa processed $68B in transactions in 2025, equivalent to 60% of Kenya's GDP, demonstrating massive financial inclusion impact."
     },
     {
         id: 63,
@@ -2414,19 +1641,7 @@ const economicsLessons = [
             business: "Integrate informal suppliers and distributors",
             government: "Formalize gradually while protecting livelihoods"
         },
-        newsExample: "Kenya's Jua Kali sector contributed 34% of GDP in 2025, highlighting the importance of informal economic activities.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenya's Jua Kali sector contributed 34% of GDP in 2025, highlighting the importance of informal economic activities."
     },
     {
         id: 64,
@@ -2442,20 +1657,8 @@ const economicsLessons = [
                 {
                     label: "Debt-to-GDP Ratio (%)",
                     data: [65, 68, 67, 69, 68, 66],
-                    borderColor: "#dc2626",
-        youtubeVideos: [
-            {
-                title: "GDP Explained: Measuring Economic Growth",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. (2023). Gross Domestic Product (GDP). Khan Academy Macroeconomics."
-            },
-            {
-                title: "Inflation and Deflation",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#dc2626"
+                },
                 {
                     label: "Budget Deficit (% GDP)",
                     data: [-8.7, -7.8, -6.2, -5.1, -4.8, -4.2],
@@ -2494,19 +1697,7 @@ const economicsLessons = [
             business: "Form industry associations for common interests",
             government: "Support cooperative development and collective action"
         },
-        newsExample: "Kenyan coffee cooperatives increased farmer incomes by 40% in 2025 by eliminating middlemen and direct export marketing.",
-        youtubeVideos: [
-            {
-                title: "Game Theory Explained",
-                url: "https://www.youtube.com/watch?v=MHS-htjGgSY",
-                reference: "TED-Ed. (2023). Game Theory: The Science of Decision-Making. TED-Ed."
-            },
-            {
-                title: "Nash Equilibrium",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. (2023). Nash Equilibrium. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenyan coffee cooperatives increased farmer incomes by 40% in 2025 by eliminating middlemen and direct export marketing."
     },
     {
         id: 66,
@@ -2530,19 +1721,7 @@ const economicsLessons = [
             business: "Differentiate products to reduce price competition",
             government: "Regulate monopolies and promote competition"
         },
-        newsExample: "Kenya's Competition Authority fined telecom companies $25M in 2025 for price-fixing, promoting consumer welfare.",
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. (2023). Introduction to Microeconomics. Khan Academy Economics."
-            },
-            {
-                title: "Consumer Choice Theory",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. (2023). Consumer Choice Theory. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenya's Competition Authority fined telecom companies $25M in 2025 for price-fixing, promoting consumer welfare."
     },
     {
         id: 67,
@@ -2563,19 +1742,7 @@ const economicsLessons = [
             business: "Expand to regional markets with reduced barriers",
             government: "Coordinate policies for regional integration benefits"
         },
-        newsExample: "EAC Common Market increased Kenya's regional exports by 28% in 2025, with Uganda becoming the largest regional trade partner.",
-        youtubeVideos: [
-            {
-                title: "Comparative Advantage and Trade",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Comparative Advantage and Trade. Khan Academy Economics."
-            },
-            {
-                title: "Exchange Rates and Currency",
-                url: "https://www.youtube.com/watch?v=lw54cg82AnI",
-                reference: "Khan Academy. (2023). Exchange Rates. Khan Academy Macroeconomics."
-            }
-        ]
+        newsExample: "EAC Common Market increased Kenya's regional exports by 28% in 2025, with Uganda becoming the largest regional trade partner."
     },
     {
         id: 68,
@@ -2599,19 +1766,7 @@ const economicsLessons = [
             business: "Provide employee health benefits efficiently",
             government: "Design sustainable universal health coverage system"
         },
-        newsExample: "Kenya's UHC pilot program reduced out-of-pocket health spending by 45% in covered counties, improving access for the poor.",
-        youtubeVideos: [
-            {
-                title: "Government Intervention in Markets",
-                url: "https://www.youtube.com/watch?v=7Qtr_vA3Prw",
-                reference: "Khan Academy. (2023). Government Intervention in Markets. Khan Academy Economics."
-            },
-            {
-                title: "Public Goods and Externalities",
-                url: "https://www.youtube.com/watch?v=Bq1vbZkU93w",
-                reference: "Khan Academy. (2023). Public Goods and Externalities. Khan Academy Economics."
-            }
-        ]
+        newsExample: "Kenya's UHC pilot program reduced out-of-pocket health spending by 45% in covered counties, improving access for the poor."
     },
     {
         id: 69,
@@ -2635,19 +1790,7 @@ const economicsLessons = [
             business: "Build climate resilience into business planning",
             government: "Prioritize high-return climate adaptation investments"
         },
-        newsExample: "Kenya's climate adaptation investments of $1.2B in 2025 are projected to save $4.8B in avoided climate damages by 2030.",
-        youtubeVideos: [
-            {
-                title: "Environmental Economics and Policy",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Environmental Economics. Khan Academy Economics."
-            },
-            {
-                title: "Carbon Pricing and Climate Policy",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "TED-Ed. (2024). Carbon Pricing: How to Put a Price on Carbon. TED-Ed."
-            }
-        ]
+        newsExample: "Kenya's climate adaptation investments of $1.2B in 2025 are projected to save $4.8B in avoided climate damages by 2030."
     },
     {
         id: 70,
@@ -2663,20 +1806,8 @@ const economicsLessons = [
                 {
                     label: "Agriculture % GDP",
                     data: [35, 28, 25, 23, 22],
-                    borderColor: "#16a34a",
-        youtubeVideos: [
-            {
-                title: "GDP Explained: Measuring Economic Growth",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. (2023). Gross Domestic Product (GDP). Khan Academy Macroeconomics."
-            },
-            {
-                title: "Inflation and Deflation",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. (2023). Inflation and Deflation. Khan Academy Macroeconomics."
-            }
-        ]
-    },
+                    borderColor: "#16a34a"
+                },
                 {
                     label: "Services % GDP",
                     data: [45, 52, 58, 62, 65],
@@ -2696,239 +1827,7 @@ const economicsLessons = [
             business: "Invest in high-growth sectors like services and technology",
             government: "Support structural transformation through education and infrastructure"
         },
-        newsExample: "Kenya's services sector reached 65% of GDP in 2025, driven by fintech, telecommunications, and business process outsourcing growth.",
-        youtubeVideos: [
-            {
-                title: "Economic Development and Growth",
-                url: "https://www.youtube.com/watch?v=GxTWqfOSidM",
-                reference: "Khan Academy. (2023). Economic Development. Khan Academy Economics."
-            },
-            {
-                title: "Structural Transformation",
-                url: "https://www.youtube.com/watch?v=9UIab7g5K5k",
-                reference: "World Bank. (2024). Economic Transformation in Africa. World Bank Group."
-            }
-        ]
-    },
-    {
-        id: 71,
-        date: "Feb 4, 2026",
-        category: "Microeconomics",
-        title: "Production Possibility Curves: Kenya's Economic Choices",
-        description: "Understanding opportunity cost and resource allocation through Kenya's development choices between agriculture and industrialization.",
-        concept: "Production Possibility Curve (PPC)",
-        definition: "Shows all different maximum attainable combinations of goods and services produced when all available resources are used efficiently at a given state of technology.",
-        chartData: {
-            type: "line",
-            labels: ["0", "20", "40", "60", "80", "100"],
-            datasets: [
-                {
-                    label: "Current PPC",
-                    data: [100, 95, 85, 70, 50, 0],
-                    borderColor: "#2563eb",
-                    backgroundColor: "rgba(37, 99, 235, 0.1)"
-                },
-                {
-                    label: "Future PPC (with growth)",
-                    data: [120, 115, 105, 90, 70, 0],
-                    borderColor: "#dc2626",
-                    backgroundColor: "rgba(220, 38, 38, 0.1)"
-                }
-            ],
-            title: "Kenya: Agriculture vs Manufacturing Output"
-        },
-        applications: {
-            individual: "Make career choices understanding opportunity costs of different paths",
-            household: "Allocate limited income between current consumption and savings",
-            business: "Decide resource allocation between different product lines",
-            government: "Choose between infrastructure investment and social programs"
-        },
-        newsExample: "Kenya's Vision 2030 aims to transform from agriculture-based to manufacturing economy, illustrating movement along and shifts of the PPC.",
-        examples: {
-            "Government": "Kenya allocated 15% more budget to manufacturing in 2024, reducing agricultural subsidies by KSh 12B",
-            "Households": "Rural families increasingly send children to technical schools instead of farming, showing opportunity cost choices",
-            "Firms": "Brookside Dairy expanded into manufacturing, reducing milk processing capacity by 20% initially",
-            "Investors": "Foreign investors chose Kenya over Tanzania for manufacturing, citing better infrastructure despite higher costs"
-        },
-        references: [
-            "Kenya Vision 2030 Secretariat. (2024). Annual Progress Report. Government of Kenya.",
-            "Kenya Association of Manufacturers. (2024). Manufacturing Sector Report. KAM.",
-            "World Bank. (2024). Kenya Economic Update: Transforming Agriculture. World Bank Group.",
-            "Central Bank of Kenya. (2024). Economic Survey 2024. CBK."
-        ],
-        youtubeVideos: [
-            {
-                title: "Game Theory Explained",
-                url: "https://www.youtube.com/watch?v=MHS-htjGgSY",
-                reference: "TED-Ed. Game Theory: The Science of Decision-Making."
-            },
-            {
-                title: "Prisoner's Dilemma",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. Nash Equilibrium."
-            }
-        ]
-    },
-    {
-        id: 72,
-        date: "Feb 4, 2026",
-        category: "Macroeconomics",
-        title: "GDP vs GNP: Measuring Kenya's True Economic Output",
-        description: "Understanding the difference between GDP and GNP and why it matters for Kenya's economic measurement.",
-        concept: "National Income Accounting",
-        definition: "GDP measures total market value of goods and services produced within geographical boundaries, while GNP measures output by residents regardless of location.",
-        tableData: {
-            headers: ["Measure", "Definition", "Kenya 2024 (KSh Trillion)", "Key Difference"],
-            rows: [
-                ["GDP", "Output within Kenya", "12.4", "Includes foreign companies in Kenya"],
-                ["GNP", "Output by Kenyan residents", "11.8", "Includes Kenyans working abroad"],
-                ["NPIA", "Net Property Income Abroad", "-0.6", "More foreign investment in Kenya"],
-                ["Per Capita GDP", "GDP divided by population", "KSh 230,000", "Standard of living measure"]
-            ]
-        },
-        applications: {
-            individual: "Understand how remittances from diaspora affect national income",
-            household: "Recognize difference between local economic activity and national wealth",
-            business: "Consider impact of foreign operations on national accounts",
-            government: "Use appropriate measure for policy decisions and international comparisons"
-        },
-        newsExample: "Kenya's GDP exceeded GNP by KSh 600B in 2024, reflecting significant foreign investment in manufacturing and services sectors.",
-        examples: {
-            "Government": "Kenya uses GDP for budget planning but GNP for measuring citizen welfare in development programs",
-            "Households": "Diaspora remittances of $4.2B in 2024 boosted GNP but not GDP, improving national income",
-            "Firms": "Safaricom's M-Pesa operations in other countries contribute to Kenya's GNP but not GDP",
-            "Investors": "Foreign banks' profits in Kenya count toward GDP but reduce GNP when repatriated"
-        },
-        references: [
-            "Kenya National Bureau of Statistics. (2024). National Accounts Statistics. KNBS.",
-            "Central Bank of Kenya. (2024). Balance of Payments Report. CBK.",
-            "World Bank. (2024). World Development Indicators: Kenya. World Bank.",
-            "International Monetary Fund. (2024). Kenya Article IV Consultation. IMF."
-        ],
-        youtubeVideos: [
-            {
-                title: "GDP Explained",
-                url: "https://www.youtube.com/watch?v=UHiUYj5EA0w",
-                reference: "Khan Academy. Gross Domestic Product."
-            },
-            {
-                title: "Inflation Explained",
-                url: "https://www.youtube.com/watch?v=Zh92g2StqF4",
-                reference: "Khan Academy. Inflation and Deflation."
-            }
-        ]
-    },
-    {
-        id: 73,
-        date: "Feb 4, 2026",
-        category: "Microeconomics",
-        title: "Consumer and Producer Surplus: Market Efficiency in Action",
-        description: "How markets create value for both buyers and sellers, with examples from Kenya's agricultural markets.",
-        concept: "Consumer and Producer Surplus",
-        definition: "Consumer surplus is excess of price buyers willing to pay over actual price paid. Producer surplus is excess of actual price over minimum price producers willing to accept.",
-        chartData: {
-            type: "line",
-            labels: ["0", "10", "20", "30", "40", "50"],
-            datasets: [
-                {
-                    label: "Demand Curve",
-                    data: [50, 45, 40, 35, 30, 25],
-                    borderColor: "#2563eb"
-                },
-                {
-                    label: "Supply Curve", 
-                    data: [10, 15, 20, 25, 30, 35],
-                    borderColor: "#dc2626"
-                }
-            ],
-            title: "Consumer & Producer Surplus (Maize Market - KSh/90kg bag)"
-        },
-        applications: {
-            individual: "Maximize consumer surplus by finding best deals and timing purchases",
-            household: "Understand value gained from market transactions",
-            business: "Optimize pricing to capture producer surplus while maintaining sales",
-            government: "Evaluate welfare effects of taxes, subsidies, and price controls"
-        },
-        newsExample: "Kenya's maize market reforms in 2024 increased total surplus by 15%, benefiting both farmers and consumers through better price discovery.",
-        examples: {
-            "Government": "Maize import duty removal increased consumer surplus by KSh 8B while reducing producer surplus by KSh 3B",
-            "Households": "Urban families gained KSh 2,400 annually in consumer surplus from lower maize prices",
-            "Firms": "Millers increased producer surplus by KSh 1.2B through improved efficiency and market access",
-            "Investors": "Agricultural commodity exchanges increased total market surplus by reducing transaction costs"
-        },
-        references: [
-            "Kenya National Bureau of Statistics. (2024). Agricultural Commodity Prices. KNBS.",
-            "Ministry of Agriculture. (2024). Maize Market Analysis Report. Government of Kenya.",
-            "Eastern Africa Grain Council. (2024). Regional Market Report. EAGC.",
-            "World Food Programme. (2024). Kenya Market Analysis. WFP."
-        ],
-        youtubeVideos: [
-            {
-                title: "Introduction to Microeconomics",
-                url: "https://www.youtube.com/watch?v=NI9TLDIPVcs",
-                reference: "Khan Academy. Introduction to Microeconomics."
-            },
-            {
-                title: "Price Elasticity of Demand",
-                url: "https://www.youtube.com/watch?v=VaWXzk8M5-8",
-                reference: "Khan Academy. Price Elasticity of Demand."
-            }
-        ]
-    },
-    {
-        id: 74,
-        date: "Feb 4, 2026",
-        category: "Market Structures",
-        title: "Price Discrimination: Why Movie Tickets Cost Different Amounts",
-        description: "Understanding how businesses charge different prices for the same product to maximize profits.",
-        concept: "Price Discrimination",
-        definition: "Charging different prices for the same product or for different units of it when such price differences are not because of cost differences.",
-        tableData: {
-            headers: ["Type", "Description", "Example", "Requirements"],
-            rows: [
-                ["1st Degree", "Different price for each unit", "Auction sales", "Perfect information"],
-                ["2nd Degree", "Bulk pricing discounts", "Electricity tariffs", "Self-selection"],
-                ["3rd Degree", "Different prices by group", "Student discounts", "Market segmentation"],
-                ["Peak Pricing", "Time-based pricing", "Uber surge pricing", "Demand variation"]
-            ]
-        },
-        chartData: {
-            type: "bar",
-            labels: ["Regular Price", "Student Discount", "Senior Discount", "Group Booking", "Peak Hours"],
-            data: [800, 500, 600, 650, 1200],
-            title: "Movie Ticket Pricing in Nairobi (KSh)"
-        },
-        applications: {
-            individual: "Take advantage of discounts and off-peak pricing",
-            household: "Plan purchases around price discrimination opportunities",
-            business: "Implement pricing strategies to capture different consumer segments",
-            government: "Regulate discriminatory pricing that may harm consumers"
-        },
-        newsExample: "Kenya Airways introduced dynamic pricing in 2024, with ticket prices varying by up to 300% based on demand, booking time, and passenger type.",
-        examples: {
-            "Government": "Kenya Power's tiered electricity pricing charges industrial users KSh 24/kWh vs residential KSh 15/kWh",
-            "Households": "Nairobi families save 40% on movie tickets by using student IDs and attending matinee shows",
-            "Firms": "Safaricom charges different M-Pesa rates for individuals (KSh 28) vs businesses (KSh 55) for same transaction",
-            "Investors": "Cinema operators increased revenue 25% through dynamic pricing based on movie popularity and showtimes"
-        },
-        references: [
-            "Competition Authority of Kenya. (2024). Price Discrimination Study. CAK.",
-            "Kenya Airways. (2024). Revenue Management Report. Kenya Airways PLC.",
-            "Safaricom PLC. (2024). M-Pesa Pricing Structure. Safaricom.",
-            "Kenya Association of Manufacturers. (2024). Pricing Strategies Survey. KAM."
-        ],
-        youtubeVideos: [
-            {
-                title: "Market Structures",
-                url: "https://www.youtube.com/watch?v=H6Wc_U3YXag",
-                reference: "Khan Academy. Perfect Competition vs Monopoly."
-            },
-            {
-                title: "Monopoly",
-                url: "https://www.youtube.com/watch?v=2d_dtTZQyUM",
-                reference: "Khan Academy. Natural Monopolies."
-            }
-        ]
+        newsExample: "Kenya's services sector reached 65% of GDP in 2025, driven by fintech, telecommunications, and business process outsourcing growth."
     }
 ];
 
