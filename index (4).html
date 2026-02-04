@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Daily - Making Economics Accessible</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="lessons-data.js"></script>
+    <script src="pdf-resources.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Toggle -->
+        <button id="sidebarToggle" class="sidebar-toggle">☰</button>
+        
+        <!-- App Header -->
+        <header class="app-header">
+            <h1>🚀 EconoMaster Pro</h1>
+            <select id="themeSelector" class="theme-selector">
+                <option value="seniva">Seniva</option>
+                <option value="cobalt">Cobalt</option>
+            </select>
+        </header>
+
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search lessons..." />
+            </div>
+            
+            <nav class="lesson-nav" id="lessonNav">
+                <!-- Navigation will be populated by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-content">
+                    <div class="welcome-icon">📊</div>
+                    <h2>Economics Daily</h2>
+                    <p class="welcome-subtitle">Making Economics Accessible to Everyone</p>
+                    <p class="welcome-description">
+                        Discover how economic principles shape our everyday decisions - from buying coffee to government policies. 
+                        Explore real-world examples from Kenya and developing countries that make complex concepts easy to understand.
+                    </p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Practical Focus</h3>
+                            <p>Every lesson connects to real decisions you make daily</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📈</div>
+                            <h3>Visual Learning</h3>
+                            <p>Charts, graphs, and tables make complex concepts clear</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <h3>Global Context</h3>
+                            <p>Examples from Kenya and developing economies worldwide</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">87</span>
+                            <span class="stat-label">Comprehensive Lessons</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Economic Categories</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Real-World Applications</span>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <p class="cta-text">Ready to start your economics journey?</p>
+                        <p class="cta-instruction">👈 Select a topic from the sidebar to begin learning</p>
+                    </div>
+                </div>
+            </div>
+            
+            <article class="lesson-content" id="lessonContent" style="display: none;">
+                <!-- Lesson content will be populated by JavaScript -->
+            </article>
+            
+            <section class="pdf-resources" id="pdfResources" style="display: none;">
+                <div class="pdf-header">
+                    <h2>📄 PDF Resources</h2>
+                    <button class="add-pdf-btn" onclick="addNewPDF()">+ Add PDF</button>
+                </div>
+                
+                <div class="pdf-filters">
+                    <select id="pdfCategoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Definitions">Definitions</option>
+                        <option value="Macroeconomics">Macroeconomics</option>
+                        <option value="Microeconomics">Microeconomics</option>
+                        <option value="General">General</option>
+                    </select>
+                    <input type="text" id="pdfSearchInput" placeholder="Search PDFs..." />
+                </div>
+                
+                <div class="pdf-grid" id="pdfGrid">
+                    <!-- PDF cards will be populated by JavaScript -->
+                </div>
+                
+                <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;" />
+            </section>
+            
+            <div class="pdf-viewer" id="pdfViewer" style="display: none;">
+                <div class="pdf-viewer-header">
+                    <button class="back-btn" onclick="closePDFViewer()">← Back to Resources</button>
+                    <h3 id="pdfViewerTitle">PDF Viewer</h3>
+                    <div class="pdf-controls">
+                        <button onclick="previousPage()">←</button>
+                        <span id="pageInfo">Page 1 of 1</span>
+                        <button onclick="nextPage()">→</button>
+                        <button onclick="zoomOut()">-</button>
+                        <span id="zoomLevel">100%</span>
+                        <button onclick="zoomIn()">+</button>
+                    </div>
+                </div>
+                <canvas id="pdfCanvas"></canvas>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
