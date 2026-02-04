@@ -259,18 +259,10 @@ function setupDarkMode() {
 function buildNavigation() {
     const nav = document.getElementById('lessonNav');
     
-    // Add PDF Resources section at the top
-    const pdfSection = document.createElement('div');
-    pdfSection.className = 'nav-section';
-    pdfSection.innerHTML = `
-        <div class="nav-section-header" onclick="showPDFResources()">
-            📄 PDF Resources
-        </div>
-    `;
-    nav.appendChild(pdfSection);
-    
     // Define learning progression from basic to advanced
     const learningPath = {
+        "📄 PDF Resources": "PDF_RESOURCES",
+        "1. Economic Foundations": [
         "1. Economic Foundations": [
             { id: 71, title: "Scope of Economics: Microeconomics vs Macroeconomics" },
             { id: 72, title: "Economic Systems: Free, Planned, and Mixed Economies" },
@@ -372,6 +364,19 @@ function buildNavigation() {
         
         const sectionHeader = document.createElement('div');
         sectionHeader.className = 'category-header';
+        
+        // Handle PDF Resources section differently
+        if (learningPath[section] === "PDF_RESOURCES") {
+            sectionHeader.innerHTML = section;
+            sectionHeader.style.cursor = 'pointer';
+            sectionHeader.addEventListener('click', () => {
+                showPDFResources();
+            });
+            sectionDiv.appendChild(sectionHeader);
+            nav.appendChild(sectionDiv);
+            return;
+        }
+        
         sectionHeader.innerHTML = `
             ${section}
             <span class="category-toggle">▼</span>
