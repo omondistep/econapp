@@ -116,22 +116,28 @@
                 <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;" />
             </section>
             
-            <div class="pdf-viewer" id="pdfViewer" style="display: none;">
-                <div class="pdf-viewer-header">
-                    <button class="back-btn" onclick="closePDFViewer()">← Back to Resources</button>
+        </main>
+        
+        <!-- PDF Viewer - Outside main content to avoid header overlap -->
+        <div class="pdf-viewer" id="pdfViewer" style="display: none;">
+            <div class="pdf-viewer-header">
+                <button class="back-btn" onclick="closePDFViewer()">← Back to Resources</button>
+                <div class="pdf-title-section">
                     <h3 id="pdfViewerTitle">PDF Viewer</h3>
-                    <div class="pdf-controls">
-                        <button onclick="previousPage()">←</button>
-                        <span id="pageInfo">Page 1 of 1</span>
-                        <button onclick="nextPage()">→</button>
-                        <button onclick="zoomOut()">-</button>
-                        <span id="zoomLevel">100%</span>
-                        <button onclick="zoomIn()">+</button>
-                    </div>
                 </div>
+                <div class="pdf-controls">
+                    <button onclick="previousPage()" title="Previous Page">‹</button>
+                    <span id="pageInfo">Page 1 of 1</span>
+                    <button onclick="nextPage()" title="Next Page">›</button>
+                    <button onclick="zoomOut()" title="Zoom Out">−</button>
+                    <span id="zoomLevel">100%</span>
+                    <button onclick="zoomIn()" title="Zoom In">+</button>
+                </div>
+            </div>
+            <div class="pdf-content-area">
                 <canvas id="pdfCanvas"></canvas>
             </div>
-        </main>
+        </div>
     </div>
 
     <script src="script.js"></script>
