@@ -102,7 +102,7 @@ async function openPDF(filename, title) {
     try {
         document.getElementById('pdfResources').style.display = 'none';
         document.getElementById('pdfViewer').style.display = 'block';
-        document.getElementById('pdfViewerTitle').textContent = title;
+        document.getElementById('pdfViewerTitle').textContent = 'PDF Viewer';
         
         const loadingTask = pdfjsLib.getDocument(filename);
         currentPDF = await loadingTask.promise;

@@ -886,7 +886,7 @@ body.dark-mode {
 }
 
 .pdf-controls button {
-    background: var(--accent-color);
+    background: #1f2937;
     color: white;
     border: none;
     padding: 0.5rem 0.75rem;
@@ -901,7 +901,7 @@ body.dark-mode {
 }
 
 .pdf-controls button:hover {
-    opacity: 0.8;
+    background: #374151;
 }
 
 .pdf-controls span {
