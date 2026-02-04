@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <h1>PDF Resources Test</h1>
+    <button onclick="testPDF()">Test PDF Loading</button>
+    <div id="result"></div>
+    
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        async function testPDF() {
+            try {
+                const pdf = await pdfjsLib.getDocument('a level economics definitions by wei seng.pdf').promise;
+                document.getElementById('result').innerHTML = `PDF loaded successfully! Pages: ${pdf.numPages}`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
