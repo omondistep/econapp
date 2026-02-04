@@ -272,12 +272,26 @@ function buildNavigation() {
     // Define learning progression from basic to advanced
     const learningPath = {
         "1. Economic Foundations": [
-        "1. Economic Foundations": [
-            { id: 71, title: "Scope of Economics: Microeconomics vs Macroeconomics" },
-            { id: 72, title: "Economic Systems: Free, Planned, and Mixed Economies" },
-            { id: 51, title: "Scarcity and Opportunity Cost in Kenya's Agriculture" },
-            { id: 52, title: "Production Possibility Curves: Kenya's Economic Choices" }
+            { id: 71, title: "Production Possibility Curves: Kenya's Economic Choices" },
+            { id: 72, title: "GDP vs GNP: Measuring Kenya's True Economic Output" },
+            { id: 73, title: "Consumer and Producer Surplus: Market Efficiency in Action" }
         ],
+        "2. Market Fundamentals": [
+            { id: 1, title: "Why Coffee Prices Rise During Winter" },
+            { id: 2, title: "The Psychology of Black Friday Shopping" },
+            { id: 3, title: "The Economics of Uber's Surge Pricing" },
+            { id: 4, title: "Why Your Salary Doesn't Buy What It Used to" }
+        ],
+        "3. Market Structures": [
+            { id: 5, title: "Why There Are Only Two Major Phone Operating Systems" },
+            { id: 74, title: "Price Discrimination: Why Movie Tickets Cost Different Amounts" }
+        ],
+        "4. Game Theory": [
+            { id: 6, title: "The Prisoner's Dilemma in Everyday Life" }
+        ],
+        "5. Labor Economics": [
+            { id: 7, title: "Why Some Jobs Pay More Than Others" }
+        ]
         "2. Market Fundamentals": [
             { id: 1, title: "Why Coffee Prices Rise During Winter" },
             { id: 73, title: "Factors Influencing Demand and Demand Curves" },
@@ -395,6 +409,8 @@ function buildNavigation() {
                 });
                 
                 lessonList.appendChild(lessonItem);
+            } else {
+                console.warn(`Lesson with id ${lessonRef.id} not found`);
             }
         });
         
