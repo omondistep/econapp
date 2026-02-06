@@ -135,6 +135,29 @@ body {
     background: var(--text-color);
 }
 
+/* Adjust sidebar toggle position when sidebar is collapsed */
+.sidebar.collapsed + .sidebar-toggle {
+    top: 1rem;
+    left: 1rem;
+}
+
+/* When sidebar is not collapsed, adjust toggle position */
+.sidebar:not(.collapsed) + .sidebar-toggle {
+    top: 1rem;
+    left: 21rem; /* 320px sidebar width - 1rem for margin */
+}
+
+/* Move sidebar toggle down in PDF viewer mode */
+body.pdf-viewer-active .sidebar-toggle {
+    top: 5rem; /* Move down below PDF viewer header */
+    z-index: 10001; /* Ensure it's above PDF viewer header */
+}
+
+/* Hide sidebar toggle in PDF resources mode */
+body.pdf-resources-active .sidebar-toggle {
+    display: none !important;
+}
+
 /* App Header */
 .app-header {
     position: fixed;
@@ -150,6 +173,11 @@ body {
     gap: 2rem;
     z-index: 999;
     box-shadow: 0 2px 4px 1px #00000026;
+}
+
+/* Hide app header in PDF viewer mode */
+body.pdf-viewer-active .app-header {
+    display: none !important;
 }
 
 .app-header h1 {
@@ -846,7 +874,7 @@ body:not(.pdf-viewer-active):not(.pdf-resources-active) .sidebar-collapsed + .co
 /* PDF viewer header should be at the very top */
 .pdf-viewer-header {
     position: fixed;
-    top: 0;
+    top: 4rem; /* Start below the main app header */
     left: 0;
     right: 0;
     height: 4rem;
@@ -860,9 +888,27 @@ body:not(.pdf-viewer-active):not(.pdf-resources-active) .sidebar-collapsed + .co
     gap: 1rem;
 }
 
+/* Adjust back button position to avoid overlap with sidebar toggle */
+.pdf-viewer-header .back-btn {
+    margin-left: 3.5rem; /* Give space for sidebar toggle */
+    background: var(--text-secondary);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    z-index: 10002; /* Ensure it's above everything */
+}
+
+.back-btn:hover {
+    background: var(--text-primary);
+}
+
 .pdf-title-section {
     flex: 1;
     text-align: center;
+    margin: 0 1rem;
 }
 
 .pdf-title-section h3 {
@@ -872,20 +918,6 @@ body:not(.pdf-viewer-active):not(.pdf-resources-active) .sidebar-collapsed + .co
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.back-btn {
-    background: var(--text-secondary);
-    color: var(--bg-primary);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.back-btn:hover {
-    background: var(--text-primary);
 }
 
 .pdf-controls {
@@ -923,7 +955,7 @@ body:not(.pdf-viewer-active):not(.pdf-resources-active) .sidebar-collapsed + .co
 /* PDF content area */
 .pdf-content-area {
     padding: 2rem;
-    margin-top: 4rem; /* Account for fixed header */
+    margin-top: 8rem; /* Account for both headers (4rem + 4rem) */
     min-height: calc(100vh - 8rem);
     display: flex;
     justify-content: center;
@@ -1304,6 +1336,7 @@ body.theme-cobalt .sidebar-toggle:hover {
     background: var(--control-text-color);
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
         width: 280px;
@@ -1324,22 +1357,32 @@ body.theme-cobalt .sidebar-toggle:hover {
         min-height: 4rem;
     }
     
-    .pdf-controls {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        padding: 0.5rem 0;
-    }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 280px;
+    .pdf-viewer-header .back-btn {
+        margin-left: 0;
+        margin-right: 0.5rem;
     }
     
-    .lesson-content {
-        padding: 2rem 1.5rem;
+    .pdf-title-section {
+        order: 3;
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+    
+    .pdf-controls {
+        order: 2;
+        margin-left: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    body.pdf-viewer-active .sidebar-toggle {
+        top: 5.5rem; /* Adjust for wrapped header */
+    }
+    
+    .sidebar:not(.collapsed) + .sidebar-toggle {
+        left: 18rem; /* Adjust for smaller sidebar on mobile */
     }
     
     .welcome-content h2 {
@@ -1350,7 +1393,7 @@ body.theme-cobalt .sidebar-toggle:hover {
         gap: 2rem;
     }
     
-    .pdf-viewer-header {
-        flex-wrap: wrap;
+    .lesson-content {
+        padding: 2rem 1.5rem;
     }
 }
