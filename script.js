@@ -1,4 +1,5 @@
 // Initialize when page loads
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     setupThemeSelector();
     setupSidebarToggle();
@@ -8,17 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Back to Resources button
     const backBtn = document.querySelector('.back-btn');
-    const pdfViewer = document.querySelector('.pdf-viewer');
-
-    if (backBtn && pdfViewer) {
-        backBtn.addEventListener('click', () => {
-            pdfViewer.classList.add('hidden'); // hide overlay
-            document.getElementById('pdfResources').style.display = 'block'; // show resources again
-        });
+    if (backBtn) {
+        backBtn.addEventListener('click', closePDFViewer);
     }
 });
 
 let currentLesson = null;
+
 
 // PDF Resources functionality
 let currentPDF = null;
