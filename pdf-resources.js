@@ -33,7 +33,7 @@ const pdfResources = [
     {
         id: 4,
         title: "Costs of Production",
-        author: "Unknown",
+        author: "Stephen Ondiek",
         filename: "Topic-costs of production.pdf",
         category: "Microeconomics",
         pages: 23,
