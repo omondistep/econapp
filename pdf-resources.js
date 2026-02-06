@@ -40,6 +40,26 @@ const pdfResources = [
         description: "Detailed analysis of production costs and firm behavior",
         topics: ["Production Theory", "Cost Curves", "Economies of Scale", "Firm Behavior"]
     }
+        {
+        id: 5,
+        title: "Cambridge Econ revision guide",
+        author: "Stephen Ondiek",
+        filename: "Cambridge Econ revision guide.pdf",
+        category: "Macro and Micro Economics",
+        pages: 50,
+        description: "Comprehensive revision kit covering many economics topics",
+        topics: ["Macro economy", "Micro economy", "Government Intervention"]
+    },
+    {
+        id: 6,
+        title: "Micro and Macro notes",
+        author: "Stephen Ondiek",
+        filename: "Micro and Macro notes.pdf",
+        category: "Microeconomics and Macroeconomics",
+        pages: 17,
+        description: "Detailed analysis of economic ideas and resource allocation",
+        topics: ["Basic Economic Ideas And Resource Allocation"]
+    }
 ];
 
 // Export for use in other files
