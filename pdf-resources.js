@@ -58,7 +58,7 @@ const pdfResources = [
         category: "Microeconomics and Macroeconomics",
         pages: 17,
         description: "Detailed analysis of economic ideas and resource allocation",
-        topics: ["Basic Economic Ideas And Resource Allocation"]
+        topics: ["Basic Economic Ideas", "Resource Allocation"]
     }
 ];
 
