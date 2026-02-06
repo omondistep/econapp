@@ -1320,3 +1320,60 @@ body.theme-cobalt .sidebar-toggle:hover {
         gap: 2rem;
     }
 }
+/* Hide search when in PDF resources mode */
+body.pdf-resources-active .search-container {
+    display: none !important;
+}
+
+/* Ensure search is visible in other modes */
+.search-container {
+    display: block !important;
+}
+
+/* Additional style to ensure proper header layout */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    background: var(--cwhite);
+    border-bottom: 1px solid var(--clabel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    z-index: 999;
+    box-shadow: 0 2px 4px 1px #00000026;
+}
+
+/* Ensure PDF viewer header is properly styled */
+.pdf-viewer-header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    gap: 1rem;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+/* Make sure back button is properly visible */
+.back-btn {
+    background: var(--text-secondary);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.back-btn:hover {
+    background: var(--text-primary);
+}
