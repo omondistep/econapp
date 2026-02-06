@@ -2,9 +2,9 @@
 const pdfResources = [
     {
         id: 1,
-        title: "A Level Economics Definitions",
+        title: "Economics Definitions",
         author: "Wei Seng",
-        filename: "a level economics definitions by wei seng.pdf",
+        filename: "Definitions.pdf",
         category: "Definitions",
         pages: 10,
         description: "Comprehensive definitions of key economic terms and concepts",
@@ -12,9 +12,9 @@ const pdfResources = [
     },
     {
         id: 2,
-        title: "A Level Economics Macro Notes",
+        title: "Macro Economics Notes",
         author: "Calvin Wong",
-        filename: "a level economics (macro) notes by calvin wong.pdf",
+        filename: "Macro economics (macro) notes.pdf",
         category: "Macroeconomics",
         pages: 21,
         description: "Detailed macroeconomic concepts including GDP, GNP, and national income",
@@ -22,9 +22,9 @@ const pdfResources = [
     },
     {
         id: 3,
-        title: "A Level Economics Revision Notes",
-        author: "Unknown",
-        filename: "a level economics revision notes.pdf",
+        title: "Economics Revision Notes",
+        author: "Stephen Ondiek",
+        filename: "Economics revision notes.pdf",
         category: "General",
         pages: 61,
         description: "Comprehensive revision notes covering all economics topics",
@@ -32,9 +32,9 @@ const pdfResources = [
     },
     {
         id: 4,
-        title: "A Level Economics Costs of Production",
+        title: "Costs of Production",
         author: "Unknown",
-        filename: "a level economics costs of production.pdf",
+        filename: "Topic-costs of production.pdf",
         category: "Microeconomics",
         pages: 23,
         description: "Detailed analysis of production costs and firm behavior",
