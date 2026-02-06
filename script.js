@@ -5,6 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
     buildNavigation();
     setupSearch();
     initializePDFResources();
+
+    // Back to Resources button
+    const backBtn = document.querySelector('.back-btn');
+    const pdfViewer = document.querySelector('.pdf-viewer');
+
+    if (backBtn && pdfViewer) {
+        backBtn.addEventListener('click', () => {
+            pdfViewer.classList.add('hidden'); // hide overlay
+            document.getElementById('pdfResources').style.display = 'block'; // show resources again
+        });
+    }
 });
 
 let currentLesson = null;
