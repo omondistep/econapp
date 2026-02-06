@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
         backBtn.addEventListener('click', closePDFViewer);
     }
     
-    // Ensure PDF resources class is not active on initial load
-    document.body.classList.remove('pdf-resources-active');
+    // Ensure no PDF mode classes are active on initial load
+    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
 });
 
 let currentLesson = null;
@@ -113,7 +113,8 @@ async function openPDF(filename, title) {
         document.getElementById('pdfViewer').style.display = 'block';
         document.getElementById('pdfViewerTitle').textContent = title;
         
-        // Remove PDF resources class since we're in viewer mode
+        // Hide sidebar and show PDF viewer mode
+        document.body.classList.add('pdf-viewer-active');
         document.body.classList.remove('pdf-resources-active');
         
         const loadingTask = pdfjsLib.getDocument(filename);
@@ -158,7 +159,8 @@ function closePDFViewer() {
     document.getElementById('pdfResources').style.display = 'block';
     currentPDF = null;
     
-    // Re-add PDF resources class since we're back to resources
+    // Switch back to PDF resources mode (not viewer)
+    document.body.classList.remove('pdf-viewer-active');
     document.body.classList.add('pdf-resources-active');
 }
 
@@ -225,8 +227,9 @@ function showPDFResources() {
     document.getElementById('pdfResources').style.display = 'block';
     document.getElementById('pdfViewer').style.display = 'none';
     
-    // Add class to body to hide search bar
+    // Add class to body for PDF resources mode
     document.body.classList.add('pdf-resources-active');
+    document.body.classList.remove('pdf-viewer-active');
 }
 
 // Sidebar toggle functionality
@@ -266,11 +269,6 @@ function applyTheme(theme) {
     
     // Apply new theme
     body.classList.add(`theme-${theme}`);
-}
-
-// Dark mode functionality (removed - themes handle this now)
-function setupDarkMode() {
-    // Removed - Cobalt theme provides dark mode
 }
 
 // Build navigation sidebar
@@ -449,8 +447,8 @@ function showLesson(lesson) {
     welcomeScreen.style.display = 'none';
     lessonContent.style.display = 'block';
     
-    // Remove PDF resources class to show search bar
-    document.body.classList.remove('pdf-resources-active');
+    // Remove PDF modes to show normal sidebar
+    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
     
     let chartHtml = '';
     if (lesson.chartData) {
