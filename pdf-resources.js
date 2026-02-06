@@ -39,7 +39,7 @@ const pdfResources = [
         pages: 23,
         description: "Detailed analysis of production costs and firm behavior",
         topics: ["Production Theory", "Cost Curves", "Economies of Scale", "Firm Behavior"]
-    }
+    },
         {
         id: 5,
         title: "Cambridge Econ revision guide",
