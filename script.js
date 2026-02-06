@@ -14,9 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ensure no PDF mode classes are active on initial load
     document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
+    
+    // Update sidebar toggle position initially
+    updateSidebarTogglePosition();
 });
 
 let currentLesson = null;
+
+// Update sidebar toggle position based on state
+function updateSidebarTogglePosition() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (!sidebarToggle || !sidebar) return;
+    
+    if (sidebar.classList.contains('collapsed')) {
+        sidebarToggle.style.left = '1rem';
+    } else {
+        sidebarToggle.style.left = '21rem'; /* 320px sidebar width - 1rem */
+    }
+}
 
 // PDF Resources functionality
 let currentPDF = null;
@@ -117,6 +134,9 @@ async function openPDF(filename, title) {
         document.body.classList.add('pdf-viewer-active');
         document.body.classList.remove('pdf-resources-active');
         
+        // Hide the main app header
+        document.querySelector('.app-header').style.display = 'none';
+        
         const loadingTask = pdfjsLib.getDocument(filename);
         currentPDF = await loadingTask.promise;
         totalPages = currentPDF.numPages;
@@ -162,6 +182,9 @@ function closePDFViewer() {
     // Switch back to PDF resources mode (not viewer)
     document.body.classList.remove('pdf-viewer-active');
     document.body.classList.add('pdf-resources-active');
+    
+    // Show the main app header again
+    document.querySelector('.app-header').style.display = 'flex';
 }
 
 function previousPage() {
@@ -230,6 +253,9 @@ function showPDFResources() {
     // Add class to body for PDF resources mode
     document.body.classList.add('pdf-resources-active');
     document.body.classList.remove('pdf-viewer-active');
+    
+    // Ensure app header is visible
+    document.querySelector('.app-header').style.display = 'flex';
 }
 
 // Sidebar toggle functionality
@@ -241,6 +267,7 @@ function setupSidebarToggle() {
     sidebarToggle.addEventListener('click', function() {
         sidebar.classList.toggle('collapsed');
         contentArea.classList.toggle('sidebar-collapsed');
+        updateSidebarTogglePosition();
     });
 }
 
@@ -449,6 +476,9 @@ function showLesson(lesson) {
     
     // Remove PDF modes to show normal sidebar
     document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
+    
+    // Ensure app header is visible
+    document.querySelector('.app-header').style.display = 'flex';
     
     let chartHtml = '';
     if (lesson.chartData) {
