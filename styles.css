@@ -1,4 +1,4 @@
-@font-face {
+  @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -848,7 +848,8 @@ body.dark-mode {
     height: 60px;
     box-sizing: border-box;
 }
-
+.pdf-viewer.hidden {
+    display: none; }
 .pdf-title-section {
     flex: 1;
     text-align: center;
