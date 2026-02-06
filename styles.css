@@ -1,4 +1,4 @@
-  @font-face {
+@font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -160,6 +160,7 @@ body {
     margin: 0;
 }
 
+/* Sidebar */
 .sidebar {
     width: 320px;
     background: var(--side-bar-bg-color);
@@ -175,16 +176,20 @@ body {
     transform: translateX(-100%);
 }
 
-/* Sidebar */
-.sidebar {
-    width: 320px;
-    background: var(--side-bar-bg-color);
-    border-right: 1px solid var(--clabel);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+/* Hide sidebar when in PDF modes */
+body.pdf-viewer-active .sidebar,
+body.pdf-resources-active .sidebar {
+    display: none !important;
 }
 
+/* Expand content area to full width when sidebar is hidden */
+body.pdf-viewer-active .content-area,
+body.pdf-resources-active .content-area {
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/* Sidebar header */
 .sidebar-header {
     padding: 1.5rem;
     border-bottom: 1px solid var(--clabel);
@@ -342,6 +347,16 @@ body {
 }
 
 .content-area.sidebar-collapsed {
+    margin-left: -320px;
+}
+
+/* When sidebar is hidden, content area should be full width */
+body:not(.pdf-viewer-active):not(.pdf-resources-active) .content-area {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+}
+
+body:not(.pdf-viewer-active):not(.pdf-resources-active) .sidebar-collapsed + .content-area {
     margin-left: -320px;
 }
 
@@ -705,12 +720,6 @@ body {
     font-style: italic;
 }
 
-/* Dark Mode */
-body.dark-mode {
-    background-color: #0f172a;
-    color: #f1f5f9;
-}
-
 /* PDF Resources Styles */
 .pdf-resources {
     padding: 2rem;
@@ -825,31 +834,32 @@ body.dark-mode {
 /* PDF Viewer Styles */
 .pdf-viewer {
     position: fixed;
-    top: 4rem;
+    top: 4rem; /* same as .app-header height */
     left: 0;
     width: 100%;
-    height: calc(100% - 4rem);
+    height: calc(100% - 4rem); /* subtract header height */
     background: var(--bg-primary);
     z-index: 9999;
     overflow: auto;
 }
 
+/* PDF viewer header should be at the very top */
 .pdf-viewer-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
+    justify-content: space-between;
     z-index: 10000;
     gap: 1rem;
-    height: 60px;
-    box-sizing: border-box;
 }
-.pdf-viewer.hidden {
-    display: none; }
+
 .pdf-title-section {
     flex: 1;
     text-align: center;
@@ -910,12 +920,17 @@ body.dark-mode {
     font-weight: 500;
 }
 
+/* PDF content area */
 .pdf-content-area {
-    background: var(--bg-primary);
-    min-height: calc(100vh - 80px);
     padding: 2rem;
+    margin-top: 4rem; /* Account for fixed header */
+    min-height: calc(100vh - 8rem);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
+/* Adjust PDF canvas to account for fixed header */
 #pdfCanvas {
     display: block;
     margin: 0 auto;
@@ -952,6 +967,7 @@ body.dark-mode {
     color: white;
 }
 
+/* Dark Mode */
 body.dark-mode {
     background-color: #0f172a;
     color: #f1f5f9;
@@ -1300,6 +1316,20 @@ body.theme-cobalt .sidebar-toggle:hover {
     .content-area.sidebar-collapsed {
         margin-left: -280px;
     }
+    
+    .pdf-viewer-header {
+        padding: 0 1rem;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 4rem;
+    }
+    
+    .pdf-controls {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        padding: 0.5rem 0;
+    }
 }
 
 /* Responsive */
@@ -1319,61 +1349,8 @@ body.theme-cobalt .sidebar-toggle:hover {
     .stats {
         gap: 2rem;
     }
-}
-/* Hide search when in PDF resources mode */
-body.pdf-resources-active .search-container {
-    display: none !important;
-}
-
-/* Ensure search is visible in other modes */
-.search-container {
-    display: block !important;
-}
-
-/* Additional style to ensure proper header layout */
-.app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4rem;
-    background: var(--cwhite);
-    border-bottom: 1px solid var(--clabel);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    z-index: 999;
-    box-shadow: 0 2px 4px 1px #00000026;
-}
-
-/* Ensure PDF viewer header is properly styled */
-.pdf-viewer-header {
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 10000;
-    gap: 1rem;
-    height: 60px;
-    box-sizing: border-box;
-}
-
-/* Make sure back button is properly visible */
-.back-btn {
-    background: var(--text-secondary);
-    color: var(--bg-primary);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.back-btn:hover {
-    background: var(--text-primary);
+    
+    .pdf-viewer-header {
+        flex-wrap: wrap;
+    }
 }
