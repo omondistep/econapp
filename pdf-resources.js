@@ -59,7 +59,7 @@ const pdfResources = [
         pages: 17,
         description: "Detailed analysis of economic ideas and resource allocation",
         topics: ["Basic Economic Ideas", "Resource Allocation"]
-    },
+    }
 ];
 
 // Export for use in other files
