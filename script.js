@@ -1,5 +1,7 @@
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded - Initializing app');
+    
     setupThemeSelector();
     setupSidebarToggle();
     buildNavigation();
@@ -16,13 +18,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Ensure no PDF mode classes are active on initial load
-    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
+    resetViewModes();
     
     // Update sidebar toggle position initially
     updateSidebarTogglePosition();
     
     // Load recommendations
     setTimeout(loadRecommendations, 1000);
+    
+    // Check URL parameters for direct navigation
+    checkURLParams();
+    
+    // Initialize analytics if available
+    if (typeof analytics !== 'undefined') {
+        analytics.updateStatsDisplay();
+    }
+    
+    console.log('App initialization complete');
 });
 
 let currentLesson = null;
@@ -34,6 +46,51 @@ let totalPages = 0;
 let scale = 1.0;
 let pdfCache = new Map();
 let loadingProgress = 0;
+
+// View mode management
+function resetViewModes() {
+    console.log('Resetting view modes');
+    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
+    document.querySelector('.app-header').style.display = 'flex';
+}
+
+function goHome() {
+    console.log('Going to home screen');
+    
+    // Hide all content sections
+    document.getElementById('welcomeScreen').style.display = 'flex';
+    document.getElementById('lessonContent').style.display = 'none';
+    document.getElementById('pdfResources').style.display = 'none';
+    document.getElementById('pdfViewer').style.display = 'none';
+    document.getElementById('bookmarksView').style.display = 'none';
+    
+    // Reset all mode classes
+    resetViewModes();
+    
+    // Remove active class from any lesson items
+    document.querySelectorAll('.lesson-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Close PDF search if open
+    closePDFSearch();
+    
+    console.log('Home screen activated');
+}
+
+// Update sidebar toggle position based on state
+function updateSidebarTogglePosition() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (!sidebarToggle || !sidebar) return;
+    
+    if (sidebar.classList.contains('collapsed')) {
+        sidebarToggle.style.left = '1rem';
+    } else {
+        sidebarToggle.style.left = '21rem'; /* 320px sidebar width - 1rem */
+    }
+}
 
 // Loading States
 function setupLoadingStates() {
@@ -156,21 +213,9 @@ async function cachePDF(filename, data) {
     }
 }
 
-// Update sidebar toggle position based on state
-function updateSidebarTogglePosition() {
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-    
-    if (!sidebarToggle || !sidebar) return;
-    
-    if (sidebar.classList.contains('collapsed')) {
-        sidebarToggle.style.left = '1rem';
-    } else {
-        sidebarToggle.style.left = '21rem'; /* 320px sidebar width - 1rem */
-    }
-}
-
+// Initialize PDF Resources
 function initializePDFResources() {
+    console.log('Initializing PDF resources');
     // Set PDF.js worker
     if (typeof pdfjsLib !== 'undefined') {
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -178,6 +223,64 @@ function initializePDFResources() {
     
     renderPDFGrid();
     setupPDFFilters();
+}
+
+// Show PDF Resources - FIXED VERSION
+function showPDFResources() {
+    console.log('showPDFResources called');
+    
+    // Hide all other views
+    const views = ['welcomeScreen', 'lessonContent', 'pdfViewer', 'bookmarksView'];
+    views.forEach(viewId => {
+        const element = document.getElementById(viewId);
+        if (element) {
+            element.style.display = 'none';
+            console.log(`Hiding ${viewId}`);
+        }
+    });
+    
+    // Show PDF resources
+    const pdfResourcesElement = document.getElementById('pdfResources');
+    if (pdfResourcesElement) {
+        pdfResourcesElement.style.display = 'block';
+        console.log('PDF resources shown');
+    }
+    
+    // Force remove any other mode classes
+    document.body.classList.remove('pdf-viewer-active');
+    
+    // Force add PDF resources mode class
+    document.body.classList.add('pdf-resources-active');
+    console.log('pdf-resources-active class added to body');
+    
+    // Show app header
+    const appHeader = document.querySelector('.app-header');
+    if (appHeader) {
+        appHeader.style.display = 'flex';
+        console.log('App header shown');
+    }
+    
+    // Hide sidebar toggle (handled by CSS with pdf-resources-active class)
+    
+    // Re-render PDF grid if needed
+    setTimeout(() => {
+        renderPDFGrid();
+        console.log('PDF grid rendered');
+    }, 100);
+    
+    // Log final state for debugging
+    setTimeout(() => {
+        console.log('Final state after showPDFResources:');
+        console.log('- Body has pdf-resources-active:', document.body.classList.contains('pdf-resources-active'));
+        console.log('- Body has pdf-viewer-active:', document.body.classList.contains('pdf-viewer-active'));
+        console.log('- PDF resources display:', document.getElementById('pdfResources').style.display);
+        console.log('- Sidebar display:', document.getElementById('sidebar').style.display);
+    }, 200);
+    
+    // Update analytics stats display
+    if (typeof analytics !== 'undefined') {
+        analytics.updateStatsDisplay();
+    }
 }
 
 async function renderPDFGrid() {
@@ -340,6 +443,12 @@ function filterPDFs() {
     }
 }
 
+function clearFilters() {
+    document.getElementById('pdfCategoryFilter').value = '';
+    document.getElementById('pdfSearchInput').value = '';
+    filterPDFs();
+}
+
 async function openPDF(filename, title) {
     if (typeof pdfjsLib === 'undefined') {
         showToast('PDF viewer not available. Please refresh the page.', 'error');
@@ -358,9 +467,9 @@ async function openPDF(filename, title) {
         document.getElementById('pdfViewer').style.display = 'block';
         document.getElementById('pdfViewerTitle').textContent = title;
         
-        // Hide sidebar and show PDF viewer mode
-        document.body.classList.add('pdf-viewer-active');
+        // Switch to PDF viewer mode
         document.body.classList.remove('pdf-resources-active');
+        document.body.classList.add('pdf-viewer-active');
         
         // Hide the main app header
         document.querySelector('.app-header').style.display = 'none';
@@ -448,11 +557,13 @@ async function renderPage(pageNum) {
 }
 
 function closePDFViewer() {
+    console.log('Closing PDF viewer');
+    
     document.getElementById('pdfViewer').style.display = 'none';
     document.getElementById('pdfResources').style.display = 'block';
     currentPDF = null;
     
-    // Switch back to PDF resources mode (not viewer)
+    // Switch back to PDF resources mode
     document.body.classList.remove('pdf-viewer-active');
     document.body.classList.add('pdf-resources-active');
     
@@ -461,6 +572,8 @@ function closePDFViewer() {
     
     // Hide search panel if open
     closePDFSearch();
+    
+    console.log('PDF viewer closed, PDF resources mode activated');
 }
 
 // Progress tracking
@@ -639,12 +752,16 @@ function showBookmarks() {
     document.getElementById('pdfResources').style.display = 'none';
     document.getElementById('welcomeScreen').style.display = 'none';
     document.getElementById('lessonContent').style.display = 'none';
+    document.getElementById('pdfViewer').style.display = 'none';
     bookmarksView.style.display = 'block';
+    
+    // Make sure we're in the right mode
+    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
 }
 
 function closeBookmarks() {
     document.getElementById('bookmarksView').style.display = 'none';
-    document.getElementById('pdfResources').style.display = 'block';
+    showPDFResources(); // Go back to PDF resources
 }
 
 function openBookmarkedPDF(filename, page) {
@@ -883,23 +1000,13 @@ function setupKeyboardShortcuts() {
     });
 }
 
-function goHome() {
-    document.getElementById('welcomeScreen').style.display = 'flex';
-    document.getElementById('lessonContent').style.display = 'none';
-    document.getElementById('pdfResources').style.display = 'none';
-    document.getElementById('pdfViewer').style.display = 'none';
-    document.getElementById('bookmarksView').style.display = 'none';
-    
-    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
-    document.querySelector('.app-header').style.display = 'flex';
-}
-
 // Recommendations
 function loadRecommendations() {
     if (!analytics) return;
     
     const recommendations = analytics.getRecommendations();
     const recommendationsList = document.getElementById('recommendationsList');
+    const recommendationsSection = document.getElementById('recommendationsSection');
     
     if (recommendations.length > 0) {
         recommendationsList.innerHTML = recommendations.map(lesson => `
@@ -909,8 +1016,9 @@ function loadRecommendations() {
                 <span class="recommendation-category">${lesson.category}</span>
             </div>
         `).join('');
+        recommendationsSection.style.display = 'block';
     } else {
-        document.getElementById('recommendationsSection').style.display = 'none';
+        recommendationsSection.style.display = 'none';
     }
 }
 
@@ -964,11 +1072,21 @@ function buildNavigation() {
     const pdfSection = document.createElement('div');
     pdfSection.className = 'nav-section';
     pdfSection.innerHTML = `
-        <div class="nav-section-header" onclick="showPDFResources()">
+        <div class="nav-section-header" id="pdfNavBtn">
             📄 PDF Resources
         </div>
     `;
     nav.appendChild(pdfSection);
+    
+    // Add click handler for PDF resources
+    document.getElementById('pdfNavBtn').addEventListener('click', () => {
+        console.log('PDF Resources clicked in navigation');
+        showPDFResources();
+        // Also remove active class from any lesson items
+        document.querySelectorAll('.lesson-item').forEach(item => {
+            item.classList.remove('active');
+        });
+    });
     
     // Define learning progression from basic to advanced
     const learningPath = {
@@ -1135,12 +1253,17 @@ function buildNavigation() {
 
 // Show lesson content
 function showLesson(lesson) {
+    console.log(`Showing lesson: ${lesson.title}`);
+    
     currentLesson = lesson;
     const welcomeScreen = document.getElementById('welcomeScreen');
     const lessonContent = document.getElementById('lessonContent');
     
     welcomeScreen.style.display = 'none';
     lessonContent.style.display = 'block';
+    document.getElementById('pdfResources').style.display = 'none';
+    document.getElementById('pdfViewer').style.display = 'none';
+    document.getElementById('bookmarksView').style.display = 'none';
     
     // Track lesson view
     if (analytics) {
@@ -1148,7 +1271,7 @@ function showLesson(lesson) {
     }
     
     // Remove PDF modes to show normal sidebar
-    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
+    resetViewModes();
     
     // Ensure app header is visible
     document.querySelector('.app-header').style.display = 'flex';
@@ -1425,3 +1548,61 @@ function setupSearch() {
         }
     });
 }
+
+// Add new PDF function
+function addNewPDF() {
+    const fileInput = document.getElementById('pdfFileInput');
+    if (fileInput) {
+        fileInput.click();
+        fileInput.onchange = function(e) {
+            const file = e.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                showToast(`PDF "${file.name}" selected. Upload functionality requires server implementation.`, 'info');
+            }
+        };
+    }
+}
+
+// Check URL parameters for direct navigation
+function checkURLParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lessonId = urlParams.get('lesson');
+    const pdf = urlParams.get('pdf');
+    
+    if (lessonId) {
+        const lesson = economicsLessons.find(l => l.id == lessonId);
+        if (lesson) {
+            showLesson(lesson);
+        }
+    } else if (pdf) {
+        // Decode the PDF filename
+        const pdfFilename = decodeURIComponent(pdf);
+        const pdfResource = pdfResources?.find(p => p.filename === pdfFilename);
+        if (pdfResource) {
+            showPDFResources();
+            // Open the PDF after a short delay
+            setTimeout(() => {
+                openPDF(pdfResource.filename, pdfResource.title);
+            }, 500);
+        }
+    }
+}
+
+// Debug function to check current mode
+function checkCurrentMode() {
+    console.log('=== Current App State ===');
+    console.log('Body classes:', document.body.className);
+    console.log('PDF Resources visible:', document.getElementById('pdfResources').style.display);
+    console.log('PDF Viewer visible:', document.getElementById('pdfViewer').style.display);
+    console.log('Welcome screen visible:', document.getElementById('welcomeScreen').style.display);
+    console.log('Lesson content visible:', document.getElementById('lessonContent').style.display);
+    console.log('Bookmarks view visible:', document.getElementById('bookmarksView').style.display);
+    console.log('App header display:', document.querySelector('.app-header').style.display);
+    console.log('Sidebar display:', document.getElementById('sidebar').style.display);
+    console.log('=========================');
+}
+
+// Make debug function available globally
+window.checkCurrentMode = checkCurrentMode;
+window.showPDFResources = showPDFResources;
+window.goHome = goHome;
