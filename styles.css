@@ -1397,3 +1397,687 @@ body.theme-cobalt .sidebar-toggle:hover {
         padding: 2rem 1.5rem;
     }
 }
+/* Add these new styles to your existing styles.css */
+
+/* Accessibility */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #2563eb;
+    color: white;
+    padding: 8px;
+    z-index: 10000;
+    text-decoration: none;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* High Contrast Theme */
+body.theme-high-contrast {
+    --bg-color: #000;
+    --text-color: #fff;
+    --clabel: #ffff00;
+    --ccard: #222;
+    --cwhite: #000;
+    --side-bar-bg-color: #111;
+    --accent-color: #ff6b00;
+}
+
+body.theme-high-contrast *:focus {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 2px;
+}
+
+body.theme-high-contrast button {
+    border: 2px solid #ffff00;
+}
+
+/* Loading States */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(4px);
+}
+
+.loading-overlay.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.loading-overlay.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+.loading-spinner {
+    background: var(--cwhite);
+    padding: 3rem;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.spinner {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-top: 4px solid #2563eb;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #2563eb;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Install Button */
+.install-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--clabel);
+    color: var(--cwhite);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.install-btn:hover {
+    background: var(--text-color);
+}
+
+/* Share Button */
+.share-btn {
+    background: none;
+    border: 1px solid var(--clabel);
+    color: var(--clabel);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.share-btn:hover {
+    background: var(--clabel);
+    color: var(--cwhite);
+}
+
+/* User Stats */
+.user-stats {
+    padding: 1.5rem;
+    border-top: 1px solid var(--clabel);
+    background: var(--side-bar-bg-color);
+}
+
+.user-stats h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clabel);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.pdf-card.skeleton {
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.skeleton-thumbnail {
+    width: 100%;
+    height: 150px;
+    background: #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.skeleton-title {
+    width: 80%;
+    height: 20px;
+    background: #ddd;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-text {
+    width: 100%;
+    height: 15px;
+    background: #ddd;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.skeleton-tag {
+    width: 60px;
+    height: 20px;
+    background: #ddd;
+    border-radius: 10px;
+}
+
+/* PDF Thumbnails */
+.pdf-thumbnail {
+    width: 100%;
+    height: 150px;
+    background: var(--ccard);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.pdf-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-placeholder {
+    font-size: 3rem;
+    color: var(--clabel);
+}
+
+/* PDF Actions */
+.pdf-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.pdf-actions button {
+    background: none;
+    border: 1px solid var(--clabel);
+    color: var(--clabel);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.pdf-actions button:hover {
+    background: var(--clabel);
+    color: var(--cwhite);
+}
+
+.view-count {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* PDF Search Panel */
+.pdf-search-panel {
+    position: fixed;
+    top: 8rem;
+    right: 2rem;
+    background: var(--cwhite);
+    border: 1px solid var(--clabel);
+    border-radius: 8px;
+    padding: 1rem;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.search-panel-header {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-panel-header input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--clabel);
+    border-radius: 4px;
+}
+
+.search-panel-header button {
+    padding: 0.5rem 1rem;
+    background: var(--clabel);
+    color: var(--cwhite);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-results {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.result-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    cursor: pointer;
+}
+
+.result-item:hover {
+    background: var(--ccard);
+}
+
+.result-page {
+    font-weight: 600;
+    color: var(--clabel);
+    margin-bottom: 0.25rem;
+}
+
+.result-text {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.result-text mark {
+    background: yellow;
+    color: #000;
+}
+
+/* Bookmarks */
+.bookmarks-view {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.bookmarks-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.bookmark-item {
+    background: var(--ccard);
+    border: 1px solid var(--clabel);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bookmark-info h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.bookmark-meta {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.bookmark-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bookmark-actions button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--clabel);
+    background: none;
+    color: var(--clabel);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bookmark-actions button:hover {
+    background: var(--clabel);
+    color: var(--cwhite);
+}
+
+.no-bookmarks {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Recommendations */
+.recommendations-section {
+    margin: 3rem 0;
+}
+
+.recommendations-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.recommendation-item {
+    background: var(--ccard);
+    padding: 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 1px solid transparent;
+}
+
+.recommendation-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--clabel);
+}
+
+.recommendation-item h4 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.recommendation-item p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.recommendation-category {
+    font-size: 0.8rem;
+    background: var(--clabel);
+    color: var(--cwhite);
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+/* Lesson Actions */
+.lesson-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.share-lesson-btn {
+    background: none;
+    border: 1px solid var(--clabel);
+    color: var(--clabel);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.share-lesson-btn:hover {
+    background: var(--clabel);
+    color: var(--cwhite);
+}
+
+.lesson-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--clabel);
+    display: flex;
+    gap: 1rem;
+}
+
+.lesson-footer button {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--clabel);
+    background: none;
+    color: var(--clabel);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.lesson-footer button:hover {
+    background: var(--clabel);
+    color: var(--cwhite);
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toast {
+    background: var(--cwhite);
+    border-left: 4px solid var(--clabel);
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    animation: slideIn 0.3s ease;
+    max-width: 300px;
+}
+
+.toast.fade-out {
+    animation: slideOut 0.3s ease;
+}
+
+.toast.success {
+    border-left-color: #10b981;
+}
+
+.toast.error {
+    border-left-color: #ef4444;
+}
+
+.toast.warning {
+    border-left-color: #f59e0b;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* View Badges */
+.view-badge {
+    background: var(--clabel);
+    color: var(--cwhite);
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Search Results Count */
+.search-results-count {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-top: 0.5rem;
+    min-height: 1rem;
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    grid-column: 1 / -1;
+}
+
+/* PDF Progress */
+.pdf-progress {
+    margin-top: 0.5rem;
+}
+
+.pdf-progress .progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    margin: 0.25rem 0;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .install-btn {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .pdf-search-panel {
+        top: 8rem;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+    }
+    
+    .recommendations-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .lesson-footer {
+        flex-direction: column;
+    }
+    
+    .pdf-actions {
+        flex-wrap: wrap;
+    }
+    
+    .user-stats {
+        display: none; /* Hide stats on mobile to save space */
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .pdf-viewer-header {
+        padding: 0 0.5rem;
+    }
+    
+    .pdf-viewer-header .back-btn {
+        margin-left: 0;
+    }
+}
