@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     buildNavigation();
     setupSearch();
     initializePDFResources();
+    setupKeyboardShortcuts();
+    setupLoadingStates();
+    setupPDFCache();
 
     // Back to Resources button
     const backBtn = document.querySelector('.back-btn');
@@ -17,9 +20,141 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update sidebar toggle position initially
     updateSidebarTogglePosition();
+    
+    // Load recommendations
+    setTimeout(loadRecommendations, 1000);
 });
 
 let currentLesson = null;
+
+// PDF Resources functionality with caching
+let currentPDF = null;
+let currentPage = 1;
+let totalPages = 0;
+let scale = 1.0;
+let pdfCache = new Map();
+let loadingProgress = 0;
+
+// Loading States
+function setupLoadingStates() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            hideLoading();
+        }
+    });
+}
+
+function showLoading(text = 'Loading...') {
+    const overlay = document.getElementById('loadingOverlay');
+    const loadingText = document.getElementById('loadingText');
+    
+    loadingText.textContent = text;
+    overlay.style.display = 'flex';
+    overlay.classList.remove('fade-out');
+    overlay.classList.add('fade-in');
+}
+
+function updateLoadingProgress(progress) {
+    loadingProgress = progress;
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) {
+        progressFill.style.width = `${progress}%`;
+    }
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.remove('fade-in');
+    overlay.classList.add('fade-out');
+    
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        overlay.classList.remove('fade-out');
+    }, 300);
+}
+
+// PDF Caching
+function setupPDFCache() {
+    // Clear old cache entries (older than 7 days)
+    const cacheExpiry = Date.now() - (7 * 24 * 60 * 60 * 1000);
+    
+    // Check if IndexedDB is available
+    if ('indexedDB' in window) {
+        const request = indexedDB.open('pdfCache', 1);
+        
+        request.onupgradeneeded = function(e) {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('pdfs')) {
+                const store = db.createObjectStore('pdfs', { keyPath: 'filename' });
+                store.createIndex('timestamp', 'timestamp');
+            }
+        };
+        
+        request.onsuccess = function(e) {
+            console.log('PDF cache initialized');
+        };
+    }
+}
+
+async function getCachedPDF(filename) {
+    if (!pdfCache.has(filename) && 'indexedDB' in window) {
+        try {
+            const db = await new Promise((resolve, reject) => {
+                const request = indexedDB.open('pdfCache', 1);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+            
+            const transaction = db.transaction(['pdfs'], 'readonly');
+            const store = transaction.objectStore('pdfs');
+            const request = store.get(filename);
+            
+            return new Promise((resolve) => {
+                request.onsuccess = () => {
+                    if (request.result) {
+                        pdfCache.set(filename, request.result.data);
+                        resolve(request.result.data);
+                    } else {
+                        resolve(null);
+                    }
+                };
+                request.onerror = () => resolve(null);
+            });
+        } catch (error) {
+            console.error('Cache error:', error);
+            return null;
+        }
+    }
+    return pdfCache.get(filename) || null;
+}
+
+async function cachePDF(filename, data) {
+    pdfCache.set(filename, data);
+    
+    if ('indexedDB' in window) {
+        try {
+            const db = await new Promise((resolve, reject) => {
+                const request = indexedDB.open('pdfCache', 1);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+            
+            const transaction = db.transaction(['pdfs'], 'readwrite');
+            const store = transaction.objectStore('pdfs');
+            
+            const cacheEntry = {
+                filename: filename,
+                data: data,
+                timestamp: Date.now()
+            };
+            
+            store.put(cacheEntry);
+        } catch (error) {
+            console.error('Cache write error:', error);
+        }
+    }
+}
 
 // Update sidebar toggle position based on state
 function updateSidebarTogglePosition() {
@@ -35,12 +170,6 @@ function updateSidebarTogglePosition() {
     }
 }
 
-// PDF Resources functionality
-let currentPDF = null;
-let currentPage = 1;
-let totalPages = 0;
-let scale = 1.0;
-
 function initializePDFResources() {
     // Set PDF.js worker
     if (typeof pdfjsLib !== 'undefined') {
@@ -51,37 +180,92 @@ function initializePDFResources() {
     setupPDFFilters();
 }
 
-function renderPDFGrid() {
+async function renderPDFGrid() {
     const grid = document.getElementById('pdfGrid');
     if (!grid || typeof pdfResources === 'undefined') return;
     
-    grid.innerHTML = pdfResources.map(pdf => `
-        <div class="pdf-card" onclick="openPDF('${pdf.filename}', '${pdf.title}')">
-            <h3>${pdf.title}</h3>
-            <div class="pdf-author">by ${pdf.author}</div>
-            <div class="pdf-meta">
-                <span>${pdf.category}</span>
-                <span>${pdf.pages} pages</span>
-            </div>
-            <div class="pdf-description">${pdf.description}</div>
-            <div class="pdf-topics">
-                ${pdf.topics.map(topic => `<span class="pdf-topic">${topic}</span>`).join('')}
+    // Show skeleton loading
+    grid.innerHTML = pdfResources.map((pdf, index) => `
+        <div class="pdf-card skeleton" id="pdf-card-${index}">
+            <div class="skeleton-thumbnail"></div>
+            <div class="skeleton-title"></div>
+            <div class="skeleton-text"></div>
+            <div class="skeleton-tags">
+                <span class="skeleton-tag"></span>
+                <span class="skeleton-tag"></span>
             </div>
         </div>
     `).join('');
+    
+    // Load thumbnails lazily
+    pdfResources.forEach((pdf, index) => {
+        setTimeout(async () => {
+            const card = document.getElementById(`pdf-card-${index}`);
+            if (card) {
+                card.classList.remove('skeleton');
+                card.innerHTML = `
+                    <div class="pdf-thumbnail" onclick="openPDF('${pdf.filename}', '${pdf.title}')">
+                        <div class="thumbnail-placeholder">📄</div>
+                    </div>
+                    <h3>${pdf.title}</h3>
+                    <div class="pdf-author">by ${pdf.author}</div>
+                    <div class="pdf-meta">
+                        <span>${pdf.category}</span>
+                        <span>${pdf.pages} pages</span>
+                        <span class="view-count">${analytics?.stats?.pdfsOpened[pdf.filename] || 0} views</span>
+                    </div>
+                    <div class="pdf-description">${pdf.description}</div>
+                    <div class="pdf-topics">
+                        ${pdf.topics.map(topic => `<span class="pdf-topic">${topic}</span>`).join('')}
+                    </div>
+                    <div class="pdf-actions">
+                        <button class="bookmark-pdf-btn" onclick="togglePDFBookmark(event, '${pdf.filename}')" 
+                                aria-label="Bookmark PDF">
+                            ☆
+                        </button>
+                        <button class="share-pdf-btn" onclick="sharePDF('${pdf.filename}', '${pdf.title}')"
+                                aria-label="Share PDF">
+                            🔗
+                        </button>
+                    </div>
+                `;
+                card.onclick = () => openPDF(pdf.filename, pdf.title);
+            }
+        }, index * 100); // Stagger loading
+    });
 }
 
 function setupPDFFilters() {
     const categoryFilter = document.getElementById('pdfCategoryFilter');
     const searchInput = document.getElementById('pdfSearchInput');
+    const searchBtn = document.getElementById('pdfSearchBtn');
     
     if (categoryFilter) {
         categoryFilter.addEventListener('change', filterPDFs);
     }
     
     if (searchInput) {
-        searchInput.addEventListener('input', filterPDFs);
+        searchInput.addEventListener('input', debounce(filterPDFs, 300));
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') filterPDFs();
+        });
     }
+    
+    if (searchBtn) {
+        searchBtn.addEventListener('click', filterPDFs);
+    }
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
 function filterPDFs() {
@@ -90,11 +274,17 @@ function filterPDFs() {
     const category = document.getElementById('pdfCategoryFilter')?.value || '';
     const search = document.getElementById('pdfSearchInput')?.value.toLowerCase() || '';
     
+    // Track search
+    if (search && analytics) {
+        analytics.trackSearch(search);
+    }
+    
     const filtered = pdfResources.filter(pdf => {
         const matchesCategory = !category || pdf.category === category;
         const matchesSearch = !search || 
             pdf.title.toLowerCase().includes(search) ||
             pdf.description.toLowerCase().includes(search) ||
+            pdf.author.toLowerCase().includes(search) ||
             pdf.topics.some(topic => topic.toLowerCase().includes(search));
         
         return matchesCategory && matchesSearch;
@@ -102,30 +292,68 @@ function filterPDFs() {
     
     const grid = document.getElementById('pdfGrid');
     if (grid) {
-        grid.innerHTML = filtered.map(pdf => `
-            <div class="pdf-card" onclick="openPDF('${pdf.filename}', '${pdf.title}')">
-                <h3>${pdf.title}</h3>
-                <div class="pdf-author">by ${pdf.author}</div>
-                <div class="pdf-meta">
-                    <span>${pdf.category}</span>
-                    <span>${pdf.pages} pages</span>
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div class="no-results">
+                    <p>No PDFs found matching your search.</p>
+                    <button onclick="clearFilters()">Clear filters</button>
                 </div>
-                <div class="pdf-description">${pdf.description}</div>
-                <div class="pdf-topics">
-                    ${pdf.topics.map(topic => `<span class="pdf-topic">${topic}</span>`).join('')}
+            `;
+        } else {
+            grid.innerHTML = filtered.map((pdf, index) => `
+                <div class="pdf-card" id="filtered-pdf-${index}">
+                    <div class="pdf-thumbnail" onclick="openPDF('${pdf.filename}', '${pdf.title}')">
+                        <div class="thumbnail-placeholder">📄</div>
+                    </div>
+                    <h3>${pdf.title}</h3>
+                    <div class="pdf-author">by ${pdf.author}</div>
+                    <div class="pdf-meta">
+                        <span>${pdf.category}</span>
+                        <span>${pdf.pages} pages</span>
+                        <span class="view-count">${analytics?.stats?.pdfsOpened[pdf.filename] || 0} views</span>
+                    </div>
+                    <div class="pdf-description">${pdf.description}</div>
+                    <div class="pdf-topics">
+                        ${pdf.topics.map(topic => `<span class="pdf-topic">${topic}</span>`).join('')}
+                    </div>
+                    <div class="pdf-actions">
+                        <button class="bookmark-pdf-btn" onclick="togglePDFBookmark(event, '${pdf.filename}')" 
+                                aria-label="Bookmark PDF">
+                            ☆
+                        </button>
+                        <button class="share-pdf-btn" onclick="sharePDF('${pdf.filename}', '${pdf.title}')"
+                                aria-label="Share PDF">
+                            🔗
+                        </button>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+            
+            // Reattach click handlers
+            filtered.forEach((pdf, index) => {
+                const card = document.getElementById(`filtered-pdf-${index}`);
+                if (card) {
+                    card.onclick = () => openPDF(pdf.filename, pdf.title);
+                }
+            });
+        }
     }
 }
 
 async function openPDF(filename, title) {
     if (typeof pdfjsLib === 'undefined') {
-        alert('PDF viewer not available. Please refresh the page.');
+        showToast('PDF viewer not available. Please refresh the page.', 'error');
         return;
     }
     
+    showLoading('Loading PDF...');
+    
     try {
+        // Track PDF open
+        if (analytics) {
+            analytics.trackPDFOpen(filename);
+        }
+        
         document.getElementById('pdfResources').style.display = 'none';
         document.getElementById('pdfViewer').style.display = 'block';
         document.getElementById('pdfViewerTitle').textContent = title;
@@ -137,16 +365,57 @@ async function openPDF(filename, title) {
         // Hide the main app header
         document.querySelector('.app-header').style.display = 'none';
         
-        const loadingTask = pdfjsLib.getDocument(filename);
-        currentPDF = await loadingTask.promise;
-        totalPages = currentPDF.numPages;
-        currentPage = 1;
+        // Check cache first
+        const cached = await getCachedPDF(filename);
         
-        renderPage(currentPage);
-        updatePageInfo();
+        if (cached) {
+            // Use cached PDF
+            currentPDF = cached;
+            totalPages = currentPDF.numPages;
+            currentPage = 1;
+            
+            updateLoadingProgress(100);
+            setTimeout(() => {
+                renderPage(currentPage);
+                updatePageInfo();
+                updatePDFProgress();
+                hideLoading();
+            }, 100);
+        } else {
+            // Load from network with progress
+            const loadingTask = pdfjsLib.getDocument({
+                url: filename,
+                withCredentials: false
+            });
+            
+            loadingTask.onProgress = (progress) => {
+                const percent = Math.round((progress.loaded / progress.total) * 100);
+                updateLoadingProgress(percent);
+            };
+            
+            currentPDF = await loadingTask.promise;
+            totalPages = currentPDF.numPages;
+            currentPage = 1;
+            
+            // Cache the PDF
+            await cachePDF(filename, currentPDF);
+            
+            renderPage(currentPage);
+            updatePageInfo();
+            updatePDFProgress();
+            hideLoading();
+        }
+        
+        // Update bookmark button
+        updateBookmarkButton();
+        
+        // Setup scroll progress tracking
+        setupPDFProgressTracking();
+        
     } catch (error) {
         console.error('Error loading PDF:', error);
-        alert('Error loading PDF file. Please check if the file exists.');
+        hideLoading();
+        showToast('Error loading PDF file. Please check your connection.', 'error');
         closePDFViewer();
     }
 }
@@ -169,8 +438,12 @@ async function renderPage(pageNum) {
         };
         
         await page.render(renderContext).promise;
+        
+        // Update progress
+        updatePDFProgress();
     } catch (error) {
         console.error('Error rendering page:', error);
+        showToast('Error rendering page', 'error');
     }
 }
 
@@ -185,6 +458,37 @@ function closePDFViewer() {
     
     // Show the main app header again
     document.querySelector('.app-header').style.display = 'flex';
+    
+    // Hide search panel if open
+    closePDFSearch();
+}
+
+// Progress tracking
+function setupPDFProgressTracking() {
+    const contentArea = document.querySelector('.pdf-content-area');
+    contentArea.addEventListener('scroll', updatePDFProgress);
+}
+
+function updatePDFProgress() {
+    const contentArea = document.querySelector('.pdf-content-area');
+    const canvas = document.getElementById('pdfCanvas');
+    
+    if (!canvas || !contentArea) return;
+    
+    const scrollTop = contentArea.scrollTop;
+    const scrollHeight = contentArea.scrollHeight - contentArea.clientHeight;
+    const progress = scrollHeight > 0 ? Math.round((scrollTop / scrollHeight) * 100) : 0;
+    
+    const progressFill = document.getElementById('pdfProgressFill');
+    const progressText = document.getElementById('pdfProgressText');
+    
+    if (progressFill) {
+        progressFill.style.width = `${progress}%`;
+    }
+    
+    if (progressText) {
+        progressText.textContent = `${progress}%`;
+    }
 }
 
 function previousPage() {
@@ -192,6 +496,7 @@ function previousPage() {
         currentPage--;
         renderPage(currentPage);
         updatePageInfo();
+        updateBookmarkButton();
     }
 }
 
@@ -200,13 +505,16 @@ function nextPage() {
         currentPage++;
         renderPage(currentPage);
         updatePageInfo();
+        updateBookmarkButton();
     }
 }
 
 function zoomIn() {
-    scale += 0.2;
-    renderPage(currentPage);
-    updateZoomLevel();
+    if (scale < 3.0) {
+        scale += 0.2;
+        renderPage(currentPage);
+        updateZoomLevel();
+    }
 }
 
 function zoomOut() {
@@ -231,31 +539,379 @@ function updateZoomLevel() {
     }
 }
 
-function addNewPDF() {
-    const fileInput = document.getElementById('pdfFileInput');
-    if (fileInput) {
-        fileInput.click();
-        fileInput.onchange = function(e) {
-            const file = e.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                alert(`PDF "${file.name}" selected. Upload functionality requires server implementation.`);
-            }
-        };
+// Bookmark functionality
+function toggleBookmark() {
+    if (!currentPDF) return;
+    
+    const pdfFilename = currentPDF.filename || '';
+    if (!pdfFilename) return;
+    
+    if (analytics) {
+        const key = `${pdfFilename}-${currentPage}`;
+        const existing = analytics.stats.bookmarks[key];
+        
+        if (existing) {
+            analytics.removeBookmark(pdfFilename, currentPage);
+            showToast('Bookmark removed', 'info');
+        } else {
+            analytics.addBookmark(pdfFilename, currentPage);
+            showToast('Page bookmarked', 'success');
+        }
+        updateBookmarkButton();
     }
 }
 
-function showPDFResources() {
+function updateBookmarkButton() {
+    if (!currentPDF || !analytics) return;
+    
+    const pdfFilename = currentPDF.filename || '';
+    const key = `${pdfFilename}-${currentPage}`;
+    const isBookmarked = !!analytics.stats.bookmarks[key];
+    
+    const bookmarkBtn = document.querySelector('.bookmark-btn');
+    if (bookmarkBtn) {
+        bookmarkBtn.innerHTML = isBookmarked ? '★' : '☆';
+        bookmarkBtn.title = isBookmarked ? 'Remove bookmark' : 'Bookmark this page';
+    }
+}
+
+function togglePDFBookmark(event, pdfFilename) {
+    event.stopPropagation();
+    
+    if (analytics) {
+        const bookmarks = analytics.getBookmarks();
+        const existing = bookmarks.find(b => b.pdf === pdfFilename && b.page === 1);
+        
+        if (existing) {
+            analytics.removeBookmark(pdfFilename, 1);
+            showToast('PDF removed from bookmarks', 'info');
+        } else {
+            analytics.addBookmark(pdfFilename, 1, 'PDF resource');
+            showToast('PDF added to bookmarks', 'success');
+        }
+    }
+}
+
+function showBookmarks() {
+    if (!analytics) return;
+    
+    const bookmarks = analytics.getBookmarks();
+    const bookmarksList = document.getElementById('bookmarksList');
+    const bookmarksView = document.getElementById('bookmarksView');
+    
+    if (bookmarks.length === 0) {
+        bookmarksList.innerHTML = `
+            <div class="no-bookmarks">
+                <p>No bookmarks yet</p>
+                <p>Bookmark pages while viewing PDFs to see them here.</p>
+            </div>
+        `;
+    } else {
+        bookmarksList.innerHTML = bookmarks.map(bookmark => {
+            const pdf = pdfResources?.find(p => p.filename === bookmark.pdf);
+            const title = pdf?.title || bookmark.pdf;
+            
+            return `
+                <div class="bookmark-item">
+                    <div class="bookmark-info">
+                        <h4>${title}</h4>
+                        <p class="bookmark-meta">
+                            Page ${bookmark.page} • 
+                            ${new Date(bookmark.date).toLocaleDateString()}
+                            ${bookmark.note ? `• Note: ${bookmark.note}` : ''}
+                        </p>
+                    </div>
+                    <div class="bookmark-actions">
+                        <button onclick="openBookmarkedPDF('${bookmark.pdf}', ${bookmark.page})" 
+                                aria-label="Open bookmarked page">
+                            Open
+                        </button>
+                        <button onclick="removeBookmark('${bookmark.pdf}', ${bookmark.page})" 
+                                aria-label="Remove bookmark">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    document.getElementById('pdfResources').style.display = 'none';
     document.getElementById('welcomeScreen').style.display = 'none';
     document.getElementById('lessonContent').style.display = 'none';
+    bookmarksView.style.display = 'block';
+}
+
+function closeBookmarks() {
+    document.getElementById('bookmarksView').style.display = 'none';
     document.getElementById('pdfResources').style.display = 'block';
+}
+
+function openBookmarkedPDF(filename, page) {
+    const pdf = pdfResources?.find(p => p.filename === filename);
+    if (pdf) {
+        openPDF(filename, pdf.title);
+        // Navigate to bookmarked page after a delay
+        setTimeout(() => {
+            currentPage = page;
+            renderPage(currentPage);
+            updatePageInfo();
+            updateBookmarkButton();
+        }, 1000);
+    }
+}
+
+function removeBookmark(pdfFilename, page) {
+    if (analytics) {
+        analytics.removeBookmark(pdfFilename, page);
+        showBookmarks(); // Refresh the list
+    }
+}
+
+// PDF Search
+async function searchInPDF() {
+    const searchInput = document.getElementById('pdfTextSearch');
+    const searchTerm = searchInput.value.trim();
+    
+    if (!searchTerm || !currentPDF) return;
+    
+    showLoading('Searching PDF...');
+    
+    try {
+        const results = [];
+        
+        // Search each page
+        for (let i = 1; i <= totalPages; i++) {
+            const page = await currentPDF.getPage(i);
+            const textContent = await page.getTextContent();
+            
+            textContent.items.forEach((item, index) => {
+                if (item.str.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    results.push({
+                        page: i,
+                        text: item.str,
+                        index: index
+                    });
+                }
+            });
+        }
+        
+        hideLoading();
+        displaySearchResults(results, searchTerm);
+    } catch (error) {
+        console.error('Search error:', error);
+        hideLoading();
+        showToast('Error searching PDF', 'error');
+    }
+}
+
+function displaySearchResults(results, searchTerm) {
+    const resultsDiv = document.getElementById('pdfSearchResults');
+    
+    if (results.length === 0) {
+        resultsDiv.innerHTML = `<p class="no-results">No results found for "${searchTerm}"</p>`;
+    } else {
+        resultsDiv.innerHTML = `
+            <h4>Found ${results.length} results:</h4>
+            <div class="results-list">
+                ${results.slice(0, 20).map(result => `
+                    <div class="result-item" onclick="goToSearchResult(${result.page}, ${result.index})">
+                        <div class="result-page">Page ${result.page}</div>
+                        <div class="result-text">${highlightText(result.text, searchTerm)}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+}
+
+function highlightText(text, searchTerm) {
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+function goToSearchResult(page, index) {
+    currentPage = page;
+    renderPage(currentPage);
+    updatePageInfo();
+    updateBookmarkButton();
+}
+
+function openPDFSearch() {
+    document.getElementById('pdfSearchPanel').style.display = 'block';
+    document.getElementById('pdfTextSearch').focus();
+}
+
+function closePDFSearch() {
+    document.getElementById('pdfSearchPanel').style.display = 'none';
+    document.getElementById('pdfTextSearch').value = '';
+    document.getElementById('pdfSearchResults').innerHTML = '';
+}
+
+// Sharing
+function sharePDF(filename, title) {
+    const pdf = pdfResources?.find(p => p.filename === filename);
+    if (!pdf) return;
+    
+    const shareData = {
+        title: pdf.title,
+        text: `Check out "${pdf.title}" - ${pdf.description.substring(0, 100)}...`,
+        url: window.location.origin + '?pdf=' + encodeURIComponent(filename)
+    };
+    
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => console.log('Shared successfully'))
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    copyToClipboard(shareData.url);
+                }
+            });
+    } else {
+        copyToClipboard(shareData.url);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+        .then(() => showToast('Link copied to clipboard!', 'success'))
+        .catch(() => showToast('Failed to copy link', 'error'));
+}
+
+// Toast notifications
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    
+    toast.className = `toast ${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.textContent = message;
+    
+    container.appendChild(toast);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+}
+
+// Keyboard Shortcuts
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', function(e) {
+        // Don't trigger shortcuts when user is typing in inputs
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            return;
+        }
+        
+        // PDF Viewer shortcuts
+        if (document.body.classList.contains('pdf-viewer-active')) {
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    previousPage();
+                    break;
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':
+                    e.preventDefault();
+                    nextPage();
+                    break;
+                case 'Escape':
+                    if (document.getElementById('pdfSearchPanel').style.display === 'block') {
+                        closePDFSearch();
+                    } else {
+                        closePDFViewer();
+                    }
+                    break;
+                case '+':
+                case '=':
+                    e.preventDefault();
+                    zoomIn();
+                    break;
+                case '-':
+                    e.preventDefault();
+                    zoomOut();
+                    break;
+                case '0':
+                    e.preventDefault();
+                    scale = 1.0;
+                    renderPage(currentPage);
+                    updateZoomLevel();
+                    break;
+                case 'b':
+                    e.preventDefault();
+                    toggleBookmark();
+                    break;
+                case 'f':
+                case '/':
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        openPDFSearch();
+                    }
+                    break;
+            }
+        }
+        
+        // Global shortcuts
+        switch(e.key) {
+            case 'Escape':
+                // Close any open panels
+                closePDFSearch();
+                break;
+            case '/':
+                if (!e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                }
+                break;
+            case 'p':
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    showPDFResources();
+                }
+                break;
+            case 'h':
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    goHome();
+                }
+                break;
+        }
+    });
+}
+
+function goHome() {
+    document.getElementById('welcomeScreen').style.display = 'flex';
+    document.getElementById('lessonContent').style.display = 'none';
+    document.getElementById('pdfResources').style.display = 'none';
     document.getElementById('pdfViewer').style.display = 'none';
+    document.getElementById('bookmarksView').style.display = 'none';
     
-    // Add class to body for PDF resources mode
-    document.body.classList.add('pdf-resources-active');
-    document.body.classList.remove('pdf-viewer-active');
-    
-    // Ensure app header is visible
+    document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
     document.querySelector('.app-header').style.display = 'flex';
+}
+
+// Recommendations
+function loadRecommendations() {
+    if (!analytics) return;
+    
+    const recommendations = analytics.getRecommendations();
+    const recommendationsList = document.getElementById('recommendationsList');
+    
+    if (recommendations.length > 0) {
+        recommendationsList.innerHTML = recommendations.map(lesson => `
+            <div class="recommendation-item" onclick="showLesson(${lesson.id})">
+                <h4>${lesson.title}</h4>
+                <p>${lesson.description.substring(0, 80)}...</p>
+                <span class="recommendation-category">${lesson.category}</span>
+            </div>
+        `).join('');
+    } else {
+        document.getElementById('recommendationsSection').style.display = 'none';
+    }
 }
 
 // Sidebar toggle functionality
@@ -265,8 +921,10 @@ function setupSidebarToggle() {
     const contentArea = document.querySelector('.content-area');
     
     sidebarToggle.addEventListener('click', function() {
+        const isCollapsed = sidebar.classList.contains('collapsed');
         sidebar.classList.toggle('collapsed');
         contentArea.classList.toggle('sidebar-collapsed');
+        sidebarToggle.setAttribute('aria-expanded', !isCollapsed);
         updateSidebarTogglePosition();
     });
 }
@@ -292,7 +950,7 @@ function applyTheme(theme) {
     const body = document.body;
     
     // Remove existing theme classes
-    body.classList.remove('theme-seniva', 'theme-cobalt');
+    body.classList.remove('theme-seniva', 'theme-cobalt', 'theme-high-contrast');
     
     // Apply new theme
     body.classList.add(`theme-${theme}`);
@@ -431,6 +1089,16 @@ function buildNavigation() {
                 lessonItem.innerHTML = `${section.split('.')[0]}.${index + 1} ${lesson.title}`;
                 lessonItem.dataset.lessonId = lesson.id;
                 
+                // Add view count badge
+                const viewCount = analytics?.stats?.lessonsViewed[lesson.id] || 0;
+                if (viewCount > 0) {
+                    const badge = document.createElement('span');
+                    badge.className = 'view-badge';
+                    badge.textContent = viewCount;
+                    badge.title = `${viewCount} views`;
+                    lessonItem.appendChild(badge);
+                }
+                
                 lessonItem.addEventListener('click', () => {
                     showLesson(lesson);
                     setActiveLesson(lessonItem);
@@ -474,6 +1142,11 @@ function showLesson(lesson) {
     welcomeScreen.style.display = 'none';
     lessonContent.style.display = 'block';
     
+    // Track lesson view
+    if (analytics) {
+        analytics.trackLessonView(lesson.id);
+    }
+    
     // Remove PDF modes to show normal sidebar
     document.body.classList.remove('pdf-resources-active', 'pdf-viewer-active');
     
@@ -507,7 +1180,15 @@ function showLesson(lesson) {
     
     lessonContent.innerHTML = `
         <div class="lesson-header">
-            <span class="lesson-category">${lesson.category}</span>
+            <div class="lesson-header-top">
+                <span class="lesson-category">${lesson.category}</span>
+                <div class="lesson-actions">
+                    <button onclick="shareLesson(${lesson.id})" class="share-lesson-btn" aria-label="Share lesson">
+                        🔗 Share
+                    </button>
+                    <span class="view-count">${analytics?.stats?.lessonsViewed[lesson.id] || 0} views</span>
+                </div>
+            </div>
             <h1>${lesson.title}</h1>
             <p class="lesson-description">${lesson.description}</p>
         </div>
@@ -557,7 +1238,7 @@ function showLesson(lesson) {
             <div class="youtube-list">
                 ${lesson.youtubeVideos.map(video => `
                     <div class="youtube-item">
-                        <a href="${video.url}" target="_blank" class="youtube-link">
+                        <a href="${video.url}" target="_blank" class="youtube-link" rel="noopener noreferrer">
                             <span class="youtube-icon">📺</span>
                             <span class="youtube-title">${video.title}</span>
                         </a>
@@ -567,11 +1248,43 @@ function showLesson(lesson) {
             </div>
         </div>
         ` : ''}
+        
+        <div class="lesson-footer">
+            <button onclick="shareLesson(${lesson.id})" class="share-btn">
+                🔗 Share this lesson
+            </button>
+            <button onclick="goHome()" class="home-btn">
+                🏠 Back to home
+            </button>
+        </div>
     `;
     
     // Initialize chart if present
     if (lesson.chartData) {
         setTimeout(() => initializeChart(lesson), 100);
+    }
+}
+
+function shareLesson(lessonId) {
+    const lesson = economicsLessons.find(l => l.id === lessonId);
+    if (!lesson) return;
+    
+    const shareData = {
+        title: lesson.title,
+        text: lesson.description.substring(0, 100) + '...',
+        url: `${window.location.origin}?lesson=${lessonId}`
+    };
+    
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => console.log('Lesson shared'))
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    copyToClipboard(shareData.url);
+                }
+            });
+    } else {
+        copyToClipboard(shareData.url);
     }
 }
 
@@ -661,16 +1374,23 @@ function initializeChart(lesson) {
 // Setup search functionality
 function setupSearch() {
     const searchInput = document.getElementById('searchInput');
+    const resultsCount = document.getElementById('searchResultsCount');
     
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
         const lessonItems = document.querySelectorAll('.lesson-item');
         const sections = document.querySelectorAll('.nav-category');
         
+        let visibleCount = 0;
+        
         if (!searchTerm) {
             // Show all lessons and sections
-            lessonItems.forEach(item => item.style.display = 'block');
+            lessonItems.forEach(item => {
+                item.style.display = 'block';
+                visibleCount++;
+            });
             sections.forEach(section => section.style.display = 'block');
+            resultsCount.textContent = '';
             return;
         }
         
@@ -679,12 +1399,15 @@ function setupSearch() {
             const lessonId = item.dataset.lessonId;
             const lesson = economicsLessons.find(l => l.id == lessonId);
             
-            const matches = lesson.title.toLowerCase().includes(searchTerm) ||
-                          lesson.description.toLowerCase().includes(searchTerm) ||
-                          lesson.concept.toLowerCase().includes(searchTerm) ||
-                          lesson.category.toLowerCase().includes(searchTerm);
+            const matches = lesson && (
+                lesson.title.toLowerCase().includes(searchTerm) ||
+                lesson.description.toLowerCase().includes(searchTerm) ||
+                lesson.concept.toLowerCase().includes(searchTerm) ||
+                lesson.category.toLowerCase().includes(searchTerm)
+            );
             
             item.style.display = matches ? 'block' : 'none';
+            if (matches) visibleCount++;
         });
         
         // Hide empty sections
@@ -692,5 +1415,13 @@ function setupSearch() {
             const visibleLessons = section.querySelectorAll('.lesson-item[style*="block"], .lesson-item:not([style])');
             section.style.display = visibleLessons.length > 0 ? 'block' : 'none';
         });
+        
+        // Update results count
+        resultsCount.textContent = visibleCount > 0 ? `${visibleCount} results` : 'No results found';
+        
+        // Track search
+        if (analytics && searchTerm.trim()) {
+            analytics.trackSearch(searchTerm);
+        }
     });
 }
