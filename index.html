@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Economics Daily - Making Economics Accessible</title>
+    <meta name="description" content="Discover how economic principles shape our everyday decisions with real-world examples from Kenya and other countries.">
+    <meta name="theme-color" content="#2563eb">
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -12,36 +15,85 @@
     <script src="pdf-resources.js"></script>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
     <div class="app-container">
         <!-- Sidebar Toggle -->
-        <button id="sidebarToggle" class="sidebar-toggle">☰</button>
+        <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="toggle-icon">☰</span>
+            <span class="sr-only">Toggle sidebar</span>
+        </button>
+        
+        <!-- Install App Button -->
+        <button id="installBtn" class="install-btn" style="display: none;" aria-label="Install app">
+            📱 Install App
+        </button>
         
         <!-- App Header -->
-        <header class="app-header">
+        <header class="app-header" role="banner">
             <h1>Dev ~ Stephen O. Ondiek</h1>
-            <select id="themeSelector" class="theme-selector">
-                <option value="seniva">Seniva</option>
-                <option value="cobalt">Cobalt</option>
-            </select>
+            <div class="header-controls">
+                <select id="themeSelector" class="theme-selector" aria-label="Select theme">
+                    <option value="seniva">Seniva</option>
+                    <option value="cobalt">Cobalt</option>
+                    <option value="high-contrast">High Contrast</option>
+                </select>
+                <button id="shareBtn" class="share-btn" aria-label="Share app" style="display: none;">
+                    🔗
+                </button>
+            </div>
         </header>
 
         <!-- Left Sidebar -->
-        <aside class="sidebar" id="sidebar">
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search lessons..." />
+                <input type="text" id="searchInput" placeholder="Search lessons..." 
+                       aria-label="Search lessons" />
+                <div class="search-results-count" id="searchResultsCount" aria-live="polite"></div>
             </div>
             
             <nav class="lesson-nav" id="lessonNav">
                 <!-- Navigation will be populated by JavaScript -->
             </nav>
+            
+            <!-- User Stats -->
+            <div class="user-stats" id="userStats">
+                <h3>Your Progress</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="lessonsViewed">0</span>
+                        <span class="stat-label">Lessons Viewed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="timeSpent">0</span>
+                        <span class="stat-label">Minutes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="bookmarksCount">0</span>
+                        <span class="stat-label">Bookmarks</span>
+                    </div>
+                </div>
+            </div>
         </aside>
 
         <!-- Main Content Area -->
-        <main class="content-area">
+        <main id="main-content" class="content-area" role="main">
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p id="loadingText">Loading...</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="welcome-screen" id="welcomeScreen">
                 <div class="welcome-content">
-                    <div class="welcome-icon">📊</div>
-                    <h2>Economics Daily</h2>
+                    <div class="welcome-icon" aria-hidden="true">📊</div>
+                    <h1>Economics Daily</h1>
                     <p class="welcome-subtitle">Making Economics Accessible to Everyone</p>
                     <p class="welcome-description">
                         Discover how economic principles shape our everyday decisions. 
@@ -50,17 +102,17 @@
                     
                     <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">🎯</div>
+                            <div class="feature-icon" aria-hidden="true">🎯</div>
                             <h3>Practical Focus</h3>
                             <p>Every lesson connects to real decisions you make daily</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">📈</div>
+                            <div class="feature-icon" aria-hidden="true">📈</div>
                             <h3>Visual Learning</h3>
                             <p>Charts, graphs, and tables make complex concepts clear</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">🌍</div>
+                            <div class="feature-icon" aria-hidden="true">🌍</div>
                             <h3>Global Context</h3>
                             <p>Examples from Kenya and others economies</p>
                         </div>
@@ -81,6 +133,14 @@
                         </div>
                     </div>
                     
+                    <!-- Recommendations Section -->
+                    <div class="recommendations-section" id="recommendationsSection">
+                        <h2>📚 Recommended for You</h2>
+                        <div class="recommendations-list" id="recommendationsList">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
                     <div class="cta-section">
                         <p class="cta-text">Ready to start your economics journey?</p>
                         <p class="cta-instruction">👈 Select a topic from the sidebar to begin learning</p>
@@ -95,18 +155,29 @@
             <section class="pdf-resources" id="pdfResources" style="display: none;">
                 <div class="pdf-header">
                     <h2>📄 PDF Resources</h2>
-                    <button class="add-pdf-btn" onclick="addNewPDF()">+ Add PDF</button>
+                    <div class="pdf-header-controls">
+                        <button class="add-pdf-btn" onclick="addNewPDF()" aria-label="Add new PDF">
+                            + Add PDF
+                        </button>
+                        <button class="view-bookmarks-btn" onclick="showBookmarks()" aria-label="View bookmarks">
+                            📑 Bookmarks
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="pdf-filters">
-                    <select id="pdfCategoryFilter">
+                    <select id="pdfCategoryFilter" aria-label="Filter by category">
                         <option value="">All Categories</option>
                         <option value="Definitions">Definitions</option>
                         <option value="Macroeconomics">Macroeconomics</option>
                         <option value="Microeconomics">Microeconomics</option>
                         <option value="General">General</option>
                     </select>
-                    <input type="text" id="pdfSearchInput" placeholder="Search PDFs..." />
+                    <div class="search-wrapper">
+                        <input type="text" id="pdfSearchInput" placeholder="Search PDFs..." 
+                               aria-label="Search PDFs" />
+                        <button id="pdfSearchBtn" class="search-btn" aria-label="Search">🔍</button>
+                    </div>
                 </div>
                 
                 <div class="pdf-grid" id="pdfGrid">
@@ -116,28 +187,74 @@
                 <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;" />
             </section>
             
-            <div class="pdf-viewer" id="pdfViewer" style="display: none;">
+            <div class="pdf-viewer" id="pdfViewer" style="display: none;" role="document">
                 <div class="pdf-viewer-header">
-                    <button class="back-btn" onclick="closePDFViewer()">← Back to Resources</button>
+                    <button class="back-btn" onclick="closePDFViewer()" aria-label="Back to resources">
+                        ← Back to Resources
+                    </button>
                     <div class="pdf-title-section">
                         <h3 id="pdfViewerTitle">PDF Viewer</h3>
+                        <div class="pdf-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="pdfProgressFill"></div>
+                            </div>
+                            <span class="progress-text" id="pdfProgressText">0%</span>
+                        </div>
                     </div>
                     <div class="pdf-controls">
-                        <button onclick="previousPage()">←</button>
-                        <span id="pageInfo">Page 1 of 1</span>
-                        <button onclick="nextPage()">→</button>
-                        <button onclick="zoomOut()">-</button>
+                        <button class="bookmark-btn" onclick="toggleBookmark()" aria-label="Bookmark page">
+                            ☆
+                        </button>
+                        <button onclick="previousPage()" aria-label="Previous page">←</button>
+                        <span id="pageInfo" aria-live="polite">Page 1 of 1</span>
+                        <button onclick="nextPage()" aria-label="Next page">→</button>
+                        <button onclick="zoomOut()" aria-label="Zoom out">-</button>
                         <span id="zoomLevel">100%</span>
-                        <button onclick="zoomIn()">+</button>
+                        <button onclick="zoomIn()" aria-label="Zoom in">+</button>
+                        <button class="search-pdf-btn" onclick="openPDFSearch()" aria-label="Search in PDF">
+                            🔍
+                        </button>
                     </div>
                 </div>
+                
+                <!-- PDF Search Panel -->
+                <div class="pdf-search-panel" id="pdfSearchPanel" style="display: none;">
+                    <div class="search-panel-header">
+                        <input type="text" id="pdfTextSearch" placeholder="Search in PDF..." 
+                               aria-label="Search text in PDF" />
+                        <button onclick="searchInPDF()" aria-label="Search">Search</button>
+                        <button onclick="closePDFSearch()" aria-label="Close search">✕</button>
+                    </div>
+                    <div class="search-results" id="pdfSearchResults">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+                
                 <div class="pdf-content-area">
                     <canvas id="pdfCanvas"></canvas>
+                </div>
+            </div>
+            
+            <!-- Bookmarks View -->
+            <div class="bookmarks-view" id="bookmarksView" style="display: none;">
+                <div class="bookmarks-header">
+                    <button class="back-btn" onclick="closeBookmarks()" aria-label="Back to resources">
+                        ← Back
+                    </button>
+                    <h2>📑 Your Bookmarks</h2>
+                </div>
+                <div class="bookmarks-list" id="bookmarksList">
+                    <!-- Bookmarks will be populated by JavaScript -->
                 </div>
             </div>
         </main>
     </div>
 
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script src="script.js"></script>
+    <script src="analytics.js"></script>
+    <script src="pwa.js"></script>
 </body>
 </html>
